@@ -60,6 +60,7 @@ Claude le pasa un link a una página como la de arriba. Ana la llena en español
 | Celular | +591 70000000 |
 | Empresa | Andes Data |
 | Correo | ana@andesdata.example |
+| Alias del correo | Sí, etiqueta `riv26` → los formularios reciben `ana+riv26@andesdata.example` |
 | Qué hace la empresa | Startup que ayuda a cooperativas a analizar sus datos de ventas con IA |
 | Restricciones alimentarias | Vegetariana |
 | Por qué quiere ir | Aprender cómo otros llevan IA a producción y conocer gente de datos |
@@ -131,6 +132,8 @@ Y le van llegando los correos de confirmación.
 ## Preguntas frecuentes
 
 **¿Dónde quedan mis datos?** En la página privada que crea Claude (solo tú la ves) y en tu computadora mientras dura la sesión. Se envían únicamente a los formularios de los eventos.
+
+**¿Cómo separo los correos de los eventos?** Activa el alias en la página de datos. Los formularios reciben `tu+riv26@empresa.com`, que llega a tu bandeja normal. Después, en Gmail, busca `to:(tu+riv26@empresa.com)` para encontrarlos todos y crea un filtro para etiquetarlos o borrarlos. En Outlook, usa una regla "enviado a" esa dirección. Funciona en Gmail, Google Workspace y Outlook / Microsoft 365; con otros proveedores, mándate un correo de prueba antes. En Luma, entra con la dirección con alias para que también aplique ahí.
 
 **¿Puedo usarla para otra conferencia?** Sí, cualquier página de conferenceparties.com: pega su link.
 
