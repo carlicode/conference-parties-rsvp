@@ -8,8 +8,9 @@ Uso:
 colección "eventos", con out_dir) o la de tracker_seed.py. <zona-horaria> es la
 de la ciudad de la conferencia, ej. America/Los_Angeles para Las Vegas.
 
-Incluye los eventos "enviado" y "aprobado". Con --pendientes suma también
-"por-aprobar" y "lista-espera" como tentativos, con "Pendiente:" en el título.
+Incluye los eventos "enviado" y "aprobado" y las sesiones "reservado". Con
+--pendientes suma también "por-aprobar", "lista-espera" y las sesiones
+"por-reservar" como tentativos, con "Pendiente:" en el título.
 Cada evento lleva un UID fijo: al reimportar, los calendarios que lo respetan
 (Apple, Outlook) actualizan en vez de duplicar.
 """
@@ -20,8 +21,8 @@ import sys
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
-CONFIRMED = {"enviado", "aprobado"}
-TENTATIVE = {"por-aprobar", "lista-espera"}
+CONFIRMED = {"enviado", "aprobado", "reservado"}
+TENTATIVE = {"por-aprobar", "lista-espera", "por-reservar"}
 
 
 def esc(text: str) -> str:
@@ -78,7 +79,8 @@ def main() -> None:
         tentative = d["status"] in TENTATIVE
         title = ("Pendiente: " if tentative else "") + d["event"]
         desc = "\n".join(x for x in [
-            d.get("sponsor") and f"Organiza: {d['sponsor']}",
+            d.get("sponsor") and (d["sponsor"] if d.get("kind") == "sesion" else f"Organiza: {d['sponsor']}"),
+            d.get("summary"),
             d.get("entry") and f"Entrada: {d['entry']}",
             d.get("note"),
             d.get("url"),
