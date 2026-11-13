@@ -62,7 +62,7 @@ Usa el navegador integrado (o Chrome si la persona lo pide). Trabaja en una pest
    - Abre la página. Si el formulario está detrás de un botón ("Register", "Request an invite"), haz clic.
    - Ejecuta `references/filler.js` con `__PROFILE__` reemplazado por el JSON de `perfil_en.json` (claves: first, last, full, email, company, title, phone, li, city, state, country, web, diet, industry). Llena lo común y te devuelve qué falta.
    - Completa lo que falte con criterio a partir del perfil: desplegables personalizados, preguntas abiertas, días o sesiones.
-   - Si el formulario rechaza el `+` del correo, usa `email_base` y anótalo en `log.txt` como `OK (sin alias) | ...`.
+   - Si hay alias y el sitio no acepta ese correo ("invalid email", "please use a valid/business email", el campo queda en rojo o el botón de enviar no avanza), vuelve a intentar con `email_base`, el correo original sin alias. Pasa en pocos sitios, así que no lo hagas por adelantado: intenta siempre primero con el alias. Anótalo en `log.txt` como `OK (sin alias) | ...` para que la persona sepa que los correos de ese evento no llevarán la etiqueta.
    - Casillas: marca solo las obligatorias (términos, privacidad, mayor de 21, aviso de fotos). Las de marketing quedan sin marcar salvo que la persona haya aceptado.
    - Envía, confirma que se registró (mensaje de "thank you", cambio de URL, "pending approval") y anota el resultado en `log.txt`: `OK | Evento | sitio`, `WAITLIST | ...`, `CLOSED | ...`, `NEEDS-USER (login/captcha) | ...`, `UNSURE | ...`, `SKIP | ...`.
 3. Si una página tiene varios eventos (ej. un solo formulario con casillas para desayuno, almuerzo y happy hour), marca todos los que la persona quiere y cuéntalos por separado.

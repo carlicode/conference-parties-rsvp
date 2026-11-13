@@ -133,7 +133,7 @@ Y le van llegando los correos de confirmación.
 
 **¿Dónde quedan mis datos?** En la página privada que crea Claude (solo tú la ves) y en tu computadora mientras dura la sesión. Se envían únicamente a los formularios de los eventos.
 
-**¿Cómo separo los correos de los eventos?** Activa el alias en la página de datos. Los formularios reciben `tu+riv26@empresa.com`, que llega a tu bandeja normal. Después, en Gmail, busca `to:(tu+riv26@empresa.com)` para encontrarlos todos y crea un filtro para etiquetarlos o borrarlos. En Outlook, usa una regla "enviado a" esa dirección. Funciona en Gmail, Google Workspace y Outlook / Microsoft 365; con otros proveedores, mándate un correo de prueba antes. En Luma, entra con la dirección con alias para que también aplique ahí.
+**¿Cómo separo los correos de los eventos?** Activa el alias en la página de datos. Los formularios reciben `tu+riv26@empresa.com`, que llega a tu bandeja normal. Después, en Gmail, busca `to:(tu+riv26@empresa.com)` para encontrarlos todos y crea un filtro para etiquetarlos o borrarlos. En Outlook, usa una regla "enviado a" esa dirección. Funciona en Gmail, Google Workspace y Outlook / Microsoft 365; con otros proveedores, mándate un correo de prueba antes. Si algún sitio no acepta el correo con alias (pasa en pocos), Claude lo envía con tu correo original y te avisa cuáles fueron. En Luma, entra con la dirección con alias para que también aplique ahí.
 
 **¿Puedo usarla para otra conferencia?** Sí, cualquier página de conferenceparties.com: pega su link.
 

@@ -43,5 +43,8 @@ Notas aprendidas llenando formularios reales de conferenceparties.com. Léelas c
 - Algunos muestran "Registration closed" o "Capacity full": regístralo como cerrado.
 - Si el formulario se vacía sin mensaje, márcalo como "dudoso" en el registro.
 
+## Correo con alias (tu+etiqueta@...)
+- Casi todos los sitios lo aceptan. Si uno lo rechaza (mensaje de correo inválido o el formulario no avanza), reintenta con el correo original y anótalo como `OK (sin alias)`.
+
 ## CAPTCHA
 - Nunca lo resuelvas. Deja el formulario lleno y pásalo a la lista "Necesita a la persona".
