@@ -1,0 +1,163 @@
+<title>Fiestas de __CONFERENCE__</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* Plantilla de la skill conference-parties-rsvp: lista de fiestas y su estado.
+   Reemplazar antes de publicar: __CONFERENCE__, __DATES__.
+   Lee la colección "eventos" de la capability db (la carga Claude con ArtifactData).
+   #demo al final del link muestra datos ficticios. */
+:root{
+  --bg:#f5f6f8; --surface:#ffffff; --fg:#17202b; --muted:#5d6876; --line:#d9dee5;
+  --accent:#e2620f; --accent-ink:#ffffff; --ok:#1d7a46; --warn:#9a6700; --bad:#b42318; --info:#2459b3;
+  --display:"Space Grotesk",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#11161d; --surface:#18202a; --fg:#e8edf3; --muted:#9aa6b4; --line:#2c3644;
+  --accent:#ff8a3d; --accent-ink:#1a1006; --ok:#4cc985; --warn:#e3b341; --bad:#ff7b72; --info:#79a8ff; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11161d; --surface:#18202a; --fg:#e8edf3; --muted:#9aa6b4; --line:#2c3644;
+  --accent:#ff8a3d; --accent-ink:#1a1006; --ok:#4cc985; --warn:#e3b341; --bad:#ff7b72; --info:#79a8ff; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
+header h1{font-family:var(--display);font-size:clamp(26px,5vw,34px);margin:0 0 6px;text-wrap:balance}
+header p{margin:0;color:var(--muted);max-width:62ch}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:6px}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:13px;border:1px solid var(--line);border-radius:999px;padding:5px 11px;background:var(--surface);color:var(--fg);cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.chip b{font-variant-numeric:tabular-nums}
+.chip[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+#search{font:inherit;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:7px;padding:9px 11px;width:100%;box-sizing:border-box}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#msg{margin:0;color:var(--muted);font-size:14px}
+section h2{font-family:var(--display);font-size:18px;margin:8px 0 8px}
+.list{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
+.row{display:grid;grid-template-columns:92px 1fr auto;gap:4px 14px;padding:12px 14px;border-top:1px solid var(--line);align-items:start}
+.row:first-child{border-top:0}
+.time{color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums;padding-top:2px}
+.name{font-weight:600;overflow-wrap:anywhere}
+.name a{color:inherit;text-decoration-color:var(--line);text-underline-offset:3px}
+.meta,.note{color:var(--muted);font-size:13px;overflow-wrap:anywhere}
+.entry{font-size:13px;color:var(--ok);overflow-wrap:anywhere}
+.entry::before{content:"Entrada: ";font-weight:600}
+select.st{font:inherit;font-size:13px;font-weight:600;border-radius:999px;padding:4px 8px;border:1px solid currentColor;background:var(--surface);color:var(--muted);max-width:190px}
+select.st.s-aprobado{color:var(--ok)} select.st.s-te-necesita{color:var(--accent)} select.st.s-rechazado,select.st.s-cerrado{color:var(--bad)}
+select.st.s-por-aprobar,select.st.s-lista-espera,select.st.s-dudoso{color:var(--warn)} select.st.s-enviado{color:var(--info)}
+.row.dim .name{color:var(--muted);font-weight:500}
+@media (max-width:560px){.row{grid-template-columns:1fr}.st{justify-self:start}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">__CONFERENCE__ · __DATES__</div>
+    <h1>Tus fiestas</h1>
+    <p>Claude actualiza esta lista cada vez que envía un formulario y cada vez que revisa tus correos. Si algo cambia (por ejemplo, decides no ir), cambia el estado aquí.</p>
+  </header>
+  <div class="filters" id="filters" role="group" aria-label="Filtrar por estado"></div>
+  <input id="search" type="search" placeholder="Buscar por evento, patrocinador o lugar" aria-label="Buscar">
+  <p id="msg" role="status">Cargando…</p>
+  <div id="days"></div>
+</div>
+
+<script>
+const STATUSES=[
+  ['por-llenar','Por llenar'],['enviado','Enviado'],['por-aprobar','Pendiente de aprobación'],
+  ['aprobado','Aprobado'],['lista-espera','Lista de espera'],['te-necesita','Te necesita'],
+  ['dudoso','Dudoso'],['rechazado','Rechazado'],['cerrado','Cerrado o lleno'],
+  ['no-voy','No voy'],['descartado','Descartado'],
+];
+const LABEL=Object.fromEntries(STATUSES);
+const HIDDEN_BY_DEFAULT=new Set(['descartado','no-voy']);
+const DEMO=[
+  {id:'d1',event:'Data Builders Happy Hour',sponsor:'Andes Data (ejemplo)',day:'Mon Nov 30',date:'2026-11-30',time:'6–9PM',sort:'2026-11-30 1080',location:'Hotel ficticio, Las Vegas',url:'https://example.com/a',status:'aprobado',note:'',entry:'Correo de Luma "You\'re in" del 26 nov, trae el QR',calendar_event_id:'demo'},
+  {id:'d2',event:'Breakfast con equipos de plataforma',sponsor:'Empresa Demo',day:'Tue Dec 1',date:'2026-12-01',time:'8–9AM',sort:'2026-12-01 0480',location:'Café ficticio',url:'https://example.com/b',status:'por-aprobar',note:'El formulario dijo "pending approval"',entry:''},
+  {id:'d3',event:'Cloud Night',sponsor:'Otra Demo',day:'Tue Dec 1',date:'2026-12-01',time:'7–10PM',sort:'2026-12-01 1140',location:'Club ficticio',url:'https://example.com/c',status:'te-necesita',note:'Pide login de Eventbrite',entry:''},
+  {id:'d4',event:'AI Leaders Dinner',sponsor:'Demo Inc.',day:'Wed Dec 2',date:'2026-12-02',time:'7–9PM',sort:'2026-12-02 1140',location:'Restaurante ficticio',url:'https://example.com/d',status:'descartado',note:'Fuera de tus días o preferencias',entry:''},
+  {id:'d5',event:'Rooftop Mixer',sponsor:'Demo Labs',day:'Wed Dec 2',date:'2026-12-02',time:'8–11PM',sort:'2026-12-02 1200',location:'Terraza ficticia',url:'https://example.com/e',status:'lista-espera',note:'Lleno, te uniste a la lista',entry:''},
+];
+
+const msg=document.getElementById('msg'),daysEl=document.getElementById('days'),filtersEl=document.getElementById('filters'),search=document.getElementById('search');
+let rows=[],filter='activas',query='',db=null,canWrite=true;
+const isDemo=location.hash==='#demo';
+
+function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
+function dayLabel(r){
+  if(!r.date)return r.day||'Sin fecha';
+  try{const t=new Date(r.date+'T12:00:00').toLocaleDateString('es',{weekday:'long',day:'numeric',month:'long'});return t.charAt(0).toUpperCase()+t.slice(1)}catch(e){return r.day||r.date}
+}
+function visible(r){
+  if(filter==='activas'&&HIDDEN_BY_DEFAULT.has(r.status))return false;
+  if(filter!=='activas'&&filter!=='todas'&&r.status!==filter)return false;
+  if(!query)return true;
+  return [r.event,r.sponsor,r.location,r.note,r.entry].join(' ').toLowerCase().includes(query);
+}
+function renderFilters(){
+  const counts={};rows.forEach(r=>{counts[r.status]=(counts[r.status]||0)+1});
+  const active=rows.filter(r=>!HIDDEN_BY_DEFAULT.has(r.status)).length;
+  const opts=[['activas','Activas',active],...STATUSES.filter(([k])=>counts[k]).map(([k,l])=>[k,l,counts[k]]),['todas','Todas',rows.length]];
+  if(!opts.some(([k])=>k===filter))filter='activas';
+  filtersEl.replaceChildren(...opts.map(([k,l,n])=>{
+    const b=el('button','chip');b.type='button';b.setAttribute('aria-pressed',String(k===filter));
+    b.append(document.createTextNode(l+' '),el('b',null,String(n)));
+    b.addEventListener('click',()=>{filter=k;render()});return b;
+  }));
+}
+function statusSelect(r){
+  const s=el('select','st s-'+r.status);s.setAttribute('aria-label','Estado de '+r.event);
+  STATUSES.forEach(([k,l])=>{const o=el('option',null,l);o.value=k;o.selected=k===r.status;s.append(o)});
+  s.disabled=!canWrite;
+  s.addEventListener('change',async()=>{
+    const next=s.value,prev=r.status;
+    s.className='st s-'+next;
+    if(isDemo){r.status=next;render();return}
+    if(!db)return;
+    s.disabled=true;
+    try{await db.collection('eventos').doc(r.id).update({status:next,updated_at:new Date().toISOString()})}
+    catch(e){s.value=prev;s.className='st s-'+prev;s.disabled=false;
+      if(e&&e.code==='invalid_argument'){canWrite=false;msg.textContent='No tienes permiso para cambiar estados en esta lista.'}
+      else msg.textContent='No se pudo guardar el cambio. Intenta de nuevo.'}
+  });
+  return s;
+}
+function render(){
+  renderFilters();
+  const shown=rows.filter(visible).sort((a,b)=>(a.sort||'').localeCompare(b.sort||'')||a.event.localeCompare(b.event));
+  const groups=new Map();
+  shown.forEach(r=>{const k=r.date||r.day||'';if(!groups.has(k))groups.set(k,[]);groups.get(k).push(r)});
+  daysEl.replaceChildren(...[...groups.values()].map(list=>{
+    const sec=el('section');sec.append(el('h2',null,dayLabel(list[0])));
+    const box=el('div','list');
+    list.forEach(r=>{
+      const row=el('div','row'+(HIDDEN_BY_DEFAULT.has(r.status)?' dim':''));
+      const main=el('div');const name=el('div','name');
+      if(/^https?:\/\//i.test(r.url||'')){const a=el('a',null,r.event);a.href=r.url;a.target='_blank';a.rel='noopener noreferrer';name.append(a)}else name.textContent=r.event;
+      main.append(name,el('div','meta',[r.sponsor,r.location].filter(Boolean).join(' · ')));
+      if(r.entry)main.append(el('div','entry',r.entry));
+      if(r.note)main.append(el('div','note',r.note));
+      if(r.calendar_event_id)main.append(el('div','meta','En tu calendario'));
+      row.append(el('div','time',r.time||''),main,statusSelect(r));
+      box.append(row);
+    });
+    sec.append(box);return sec;
+  }));
+  if(!rows.length)msg.textContent='La lista está vacía. Claude la llena después de filtrar los eventos.';
+  else if(!shown.length)msg.textContent='Ningún evento coincide con el filtro.';
+  else msg.textContent=shown.length+' de '+rows.length+' eventos'+(isDemo?' · ejemplo con datos ficticios':'');
+}
+search.addEventListener('input',()=>{query=search.value.trim().toLowerCase();render()});
+
+if(isDemo){rows=DEMO.map(r=>({...r}));render()}
+else{
+  let loaded=false;
+  const timer=setTimeout(()=>{if(!loaded)msg.textContent='No se pudo cargar la lista todavía. Revisa tu conexión; se actualiza sola cuando responda.'},10000);
+  (async()=>{
+    try{db=await window.claude?.use?.('db')}catch(e){db=null}
+    if(!db){clearTimeout(timer);msg.textContent='Esta vista no puede leer la lista. Ábrela desde claude.ai con tu sesión iniciada.';return}
+    db.collection('eventos').onSnapshot(snap=>{
+      rows=snap.docs.map(d=>({id:d.id,...d.data()}));
+      if(!snap.metadata.fromCache){loaded=true;clearTimeout(timer)}
+      render();
+    },err=>{clearTimeout(timer);msg.textContent='No se pudo leer la lista ('+(err&&err.code||'error')+').'});
+  })();
+}
+</script>
