@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
 <style>
 /* Plantilla de la skill conference-parties-rsvp.
-   Reemplazar antes de publicar: __CONFERENCE__, __DATES__, __EVENT_COUNT__, __DAYS__ (JSON [["Mon Nov 30","Lun 30"],...]).
+   Reemplazar antes de publicar: __CONFERENCE__, __DATES__, __EVENT_COUNT__, __ALIAS_TAG__, __DAYS__ (JSON [["Mon Nov 30","Lun 30"],...]).
    Layout: una columna de formulario, secciones con grid de 2 columnas que se apila en teléfono. */
 :root{
   --bg:#f5f6f8; --surface:#ffffff; --fg:#17202b; --muted:#5d6876; --line:#d9dee5;
@@ -46,6 +46,9 @@ button{font:inherit;font-weight:600;border-radius:8px;padding:10px 18px;cursor:p
 button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 #status{font-size:13.5px;color:var(--muted)}
 #status.ok{color:var(--ok)}
+.alias-row{display:flex;gap:8px;align-items:center}
+.alias-row input{max-width:180px}
+#alias_preview{font-family:ui-monospace,monospace;font-size:12.5px;color:var(--muted);margin:0}
 #copybox{width:100%;min-height:120px;font-family:ui-monospace,monospace;font-size:12px}
 @media (max-width:560px){fieldset{grid-template-columns:1fr}}
 </style>
@@ -81,6 +84,12 @@ button.primary{background:var(--accent);color:var(--accent-ink);border-color:var
       <legend>Empresa</legend>
       <div class="f"><label class="req" for="company">Nombre de la empresa</label><input type="text" id="company"></div>
       <div class="f"><label class="req" for="email">Correo de trabajo</label><input type="email" id="email" placeholder="tu@empresa.com"></div>
+      <div class="f full">
+        <label class="single"><input type="checkbox" id="use_alias"> Registrarme con un alias del correo (tu+etiqueta@…) para filtrar después los correos de estos eventos</label>
+        <div class="alias-row"><label for="alias_tag">Etiqueta</label><input type="text" id="alias_tag" value="__ALIAS_TAG__" autocomplete="off" spellcheck="false"></div>
+        <p id="alias_preview" aria-live="polite"></p>
+        <span class="why">Funciona en Gmail, Google Workspace y Outlook / Microsoft 365. Si tu correo es de otro proveedor, mándate un correo de prueba a la dirección con alias antes de activarlo.</span>
+      </div>
       <div class="f"><label class="req" for="website">Sitio web</label><input type="url" id="website" placeholder="https://"></div>
       <div class="f"><label class="req" for="industry">Industria</label><input type="text" id="industry" placeholder="Ej. Logística, Banca, Software"></div>
       <div class="f"><label class="req" for="company_size">Tamaño de la empresa</label>
@@ -166,7 +175,7 @@ button.primary{background:var(--accent);color:var(--accent-ink);border-color:var
 
 <script>
 const DAYS = __DAYS__;
-const DEMO = {first_name:"Ana",last_name:"Rojas",job_title:"Ingeniera de datos",phone:"+591 70000000",linkedin:"https://www.linkedin.com/in/ana-rojas-ejemplo/",github:"anarojas-demo",city:"Cochabamba",country:"Bolivia",state:"Cochabamba",dietary:"Vegetariana",shirt:"S",over21:true,company:"Andes Data (ejemplo)",email:"ana@andesdata.example",website:"https://andesdata.example",industry:"Software / analítica",company_size:"1-99",funding:"Seed",company_desc:"Startup que ayuda a cooperativas a analizar sus datos de ventas con IA.",seniority:"Manager / Team Lead",budget_role:"Influencer",department:"Data / Analytics / AI",cloud_relation:"I run workloads as a customer",cloud_usage:"Yes, in production",main_cloud:"AWS",cloud_spend:"Less than $500K",conference_registered:"Yes",manage_spend:"No",topics:["Generative AI","Data & analytics"],pitch:"Quiero aprender cómo otros equipos llevan IA a producción y conocer gente de datos.",challenge:"Ordenar datos de muchas fuentes antes de usar IA.",heard:"Conference Parties",include_waitlist:true};
+const DEMO = {first_name:"Ana",last_name:"Rojas",job_title:"Ingeniera de datos",phone:"+591 70000000",linkedin:"https://www.linkedin.com/in/ana-rojas-ejemplo/",github:"anarojas-demo",city:"Cochabamba",country:"Bolivia",state:"Cochabamba",dietary:"Vegetariana",shirt:"S",over21:true,company:"Andes Data (ejemplo)",email:"ana@andesdata.example",website:"https://andesdata.example",industry:"Software / analítica",company_size:"1-99",funding:"Seed",company_desc:"Startup que ayuda a cooperativas a analizar sus datos de ventas con IA.",seniority:"Manager / Team Lead",budget_role:"Influencer",department:"Data / Analytics / AI",cloud_relation:"I run workloads as a customer",cloud_usage:"Yes, in production",main_cloud:"AWS",cloud_spend:"Less than $500K",conference_registered:"Yes",manage_spend:"No",topics:["Generative AI","Data & analytics"],pitch:"Quiero aprender cómo otros equipos llevan IA a producción y conocer gente de datos.",challenge:"Ordenar datos de muchas fuentes antes de usar IA.",heard:"Conference Parties",include_waitlist:true,use_alias:true,alias_tag:"__ALIAS_TAG__"};
 
 const daysBox=document.getElementById('days');
 DAYS.forEach(([value,label])=>{const l=document.createElement('label');l.className='chip';const i=document.createElement('input');i.type='checkbox';i.value=value;l.append(i,document.createTextNode(label));daysBox.append(l)});
@@ -181,6 +190,7 @@ function collect(){
     o[el.id]=el.type==='checkbox'?el.checked:el.value.trim();
   });
   groups.forEach(g=>{o[g]=[...document.querySelectorAll('#'+g+' input:checked')].map(i=>i.value)});
+  o.email_alias=o.use_alias?aliasOf(o.email,o.alias_tag):'';
   o.updated_at=new Date().toISOString();
   return o;
 }
@@ -192,6 +202,20 @@ function fill(o){
   });
   groups.forEach(g=>{const v=o[g]||[];document.querySelectorAll('#'+g+' input').forEach(i=>{i.checked=v.includes(i.value)})});
 }
+// "ana@empresa.com" + "riv26" -> "ana+riv26@empresa.com". Si el correo ya trae un +algo, se reemplaza.
+function aliasOf(email,tag){
+  const at=email.lastIndexOf('@');
+  const clean=(tag||'').toLowerCase().replace(/[^a-z0-9._-]/g,'');
+  if(at<1||!clean)return '';
+  return email.slice(0,at).split('+')[0]+'+'+clean+email.slice(at);
+}
+const aliasTag=document.getElementById('alias_tag'),useAlias=document.getElementById('use_alias'),aliasPreview=document.getElementById('alias_preview');
+function updateAlias(){
+  aliasTag.disabled=!useAlias.checked;
+  if(!useAlias.checked){aliasPreview.textContent='Se usará tu correo tal cual.';return}
+  const a=aliasOf(document.getElementById('email').value.trim(),aliasTag.value);
+  aliasPreview.textContent=a?'Los formularios recibirán: '+a:'Escribe tu correo y una etiqueta para ver el alias.';
+}
 function setStatus(t,ok){statusEl.textContent=t;statusEl.className=ok?'ok':''}
 function showCopy(){
   const box=document.getElementById('copybox');
@@ -201,7 +225,8 @@ function showCopy(){
 }
 if(location.hash==='#demo'){fill({...DEMO,days:DAYS.slice(1,4).map(d=>d[0])});setStatus('Ejemplo con datos ficticios')}
 else{try{const d=localStorage.getItem('rsvp-draft');if(d)fill(JSON.parse(d))}catch(e){}}
-form.addEventListener('input',()=>{setStatus('Cambios sin guardar');try{localStorage.setItem('rsvp-draft',JSON.stringify(collect()))}catch(e){}});
+updateAlias();
+form.addEventListener('input',()=>{updateAlias();setStatus('Cambios sin guardar');try{localStorage.setItem('rsvp-draft',JSON.stringify(collect()))}catch(e){}});
 form.addEventListener('submit',e=>e.preventDefault());
 
 let ref=null;
@@ -211,7 +236,7 @@ let ref=null;
     if(!db)return;
     ref=db.doc('perfil/datos');
     const snap=await ref.get();
-    if(snap.exists&&location.hash!=='#demo'){fill(snap.data());setStatus('Datos guardados cargados',true)}
+    if(snap.exists&&location.hash!=='#demo'){fill(snap.data());updateAlias();setStatus('Datos guardados cargados',true)}
   }catch(e){}
 })();
 
