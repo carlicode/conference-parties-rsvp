@@ -119,6 +119,18 @@ Al terminar, Ana recibe algo así:
 
 Y le van llegando los correos de confirmación.
 
+### 9. La lista de fiestas
+
+Claude también le deja a Ana una página con todos los eventos agrupados por día y el estado de cada uno: por llenar, enviado, pendiente de aprobación, aprobado, lista de espera, te necesita o descartado. Claude la actualiza al enviar cada formulario. Ana puede filtrarla, buscar y marcar "No voy" en lo que ya no le interesa.
+
+### 10. Limpieza de correos (opcional)
+
+Si Ana conecta su correo (por ejemplo Gmail), Claude revisa los mensajes de los eventos. Guarda los que sirven para entrar: entradas, QR, "you're in", invitaciones de calendario y cambios de lugar u hora. Manda el resto a la papelera: newsletters, marketing y "thanks for your interest". Con cada correo actualiza la lista; por ejemplo, un "approved" deja el evento como aprobado y anota en qué correo está la entrada. La primera vez muestra qué va a borrar y espera el sí de Ana. Funciona mejor con el alias activado, porque todo llega a `ana+riv26@...`. Si el conector no puede borrar, Claude le da a Ana una búsqueda de Gmail para borrar el resto ella misma.
+
+### 11. Las fiestas en el calendario (opcional)
+
+Ana elige si quiere en su calendario solo lo confirmado o también lo pendiente. Si tiene Google Calendar conectado, Claude crea cada evento con la hora de Las Vegas, el lugar y en qué correo está la entrada. Los pendientes quedan como tentativos, con "Pendiente:" en el título. Cuando un evento se aprueba, se rechaza o Ana marca "No voy", Claude lo actualiza o lo borra del calendario. Sin conector, Claude genera un archivo `fiestas.ics` que se importa en Google Calendar, Apple Calendar u Outlook. Claude nunca agrega invitados a esos eventos.
+
 ---
 
 ## Lo que Claude **no** hace
@@ -128,6 +140,7 @@ Y le van llegando los correos de confirmación.
 - No paga entradas.
 - No acepta correos de marketing salvo que lo marques.
 - No envía nada hasta que digas que sí.
+- No borra correos de forma definitiva: los manda a la papelera, y la primera vez te pregunta.
 
 ## Preguntas frecuentes
 
@@ -155,10 +168,13 @@ conference-parties-rsvp/
 └── skills/conference-parties-rsvp/   ← la skill (esto es lo que se instala)
     ├── SKILL.md                  ← instrucciones para Claude
     ├── assets/perfil.html        ← plantilla de la página de datos
+    ├── assets/fiestas.html       ← plantilla de la lista de fiestas
     ├── scripts/
     │   ├── extract_events.py     ← saca todos los eventos de la página
     │   ├── luma_questions.py     ← lee las preguntas de Luma
-    │   └── filter_events.py      ← filtra por tus días y preferencias
+    │   ├── filter_events.py      ← filtra por tus días y preferencias
+    │   ├── tracker_seed.py       ← prepara la lista de fiestas
+    │   └── calendar_ics.py       ← arma el .ics para tu calendario
     └── references/
         ├── filler.js             ← llena los campos comunes de un formulario
         └── plataformas.md        ← trucos para Luma, HubSpot, Cvent, etc.
