@@ -123,7 +123,7 @@ Y le van llegando los correos de confirmación.
 
 Claude también le deja a Ana una página con todos los eventos agrupados por día y el estado de cada uno: por llenar, enviado, pendiente de aprobación, aprobado, lista de espera, te necesita o descartado. Claude la actualiza al enviar cada formulario. Ana puede filtrarla, buscar y marcar "No voy" en lo que ya no le interesa.
 
-Si Ana quiere, Claude también suma a la lista las sesiones de la comunidad: para re:Invent 2026, las 6 del track COM con speakers de LATAM. De cada sesión queda marcado para reservar el primer horario que cae en sus días, y las repeticiones quedan como alternativa. Estas sesiones se reservan en el catálogo oficial con la cuenta de Ana; Claude le da los códigos y no entra al catálogo.
+Si Ana quiere, Claude también suma a la lista las sesiones de la comunidad: para re:Invent 2026, las 6 del track COM con speakers de LATAM y la builders' session AIM407 sobre multi-agentes con Strands. De cada sesión queda marcado para reservar el primer horario que cae en sus días, y las repeticiones quedan como alternativa. Estas sesiones se reservan en el catálogo oficial con la cuenta de Ana; Claude le da los códigos y no entra al catálogo.
 
 ### 10. Limpieza de correos (opcional)
 
