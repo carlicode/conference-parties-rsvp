@@ -93,7 +93,7 @@ def main() -> None:
                 json.dump(doc, f, ensure_ascii=False, indent=1)
             writes.append({"op": "set", "collection": "eventos", "doc_id": doc_id, "file_path": path})
         if not any(not days or short_day(dt) in days for dt in starts):
-            outside.append(s["code"])
+            outside.append(s.get("code") or s["id"])  # los meetups no tienen código de catálogo
 
     batches = [writes[i:i + BATCH] for i in range(0, len(writes), BATCH)]
     with open(os.path.join(out_dir, "batches_sesiones.json"), "w", encoding="utf-8") as f:
