@@ -1,0 +1,229 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="margin:0"><title>Datos para AWS re:Invent 2026</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* Plantilla de la skill conference-parties-rsvp.
+   Reemplazar antes de publicar: AWS re:Invent 2026, Las Vegas · 29 nov – 4 dic, 207, [["Sun Nov 29","Dom 29"],["Mon Nov 30","Lun 30"],["Tue Dec 1","Mar 1"],["Wed Dec 2","Mié 2"],["Thu Dec 3","Jue 3"],["Fri Dec 4","Vie 4"]] (JSON [["Mon Nov 30","Lun 30"],...]).
+   Layout: una columna de formulario, secciones con grid de 2 columnas que se apila en teléfono. */
+:root{
+  --bg:#f5f6f8; --surface:#ffffff; --fg:#17202b; --muted:#5d6876; --line:#d9dee5;
+  --accent:#e2620f; --accent-ink:#ffffff; --ok:#1d7a46;
+  --display:"Space Grotesk",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#11161d; --surface:#18202a; --fg:#e8edf3; --muted:#9aa6b4; --line:#2c3644;
+  --accent:#ff8a3d; --accent-ink:#1a1006; --ok:#4cc985; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11161d; --surface:#18202a; --fg:#e8edf3; --muted:#9aa6b4; --line:#2c3644;
+  --accent:#ff8a3d; --accent-ink:#1a1006; --ok:#4cc985; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:760px;margin:0 auto;padding-block:32px 120px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
+header h1{font-family:var(--display);font-size:clamp(26px,5vw,34px);margin:0 0 6px;text-wrap:balance}
+header p{margin:0;color:var(--muted);max-width:62ch}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:6px}
+.stack{display:flex;flex-direction:column;gap:20px}
+fieldset{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:18px 18px 20px;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:14px 16px;min-width:0}
+legend{font-family:var(--display);font-weight:700;font-size:17px;padding:0 6px}
+.hint{grid-column:1/-1;margin:-4px 0 0;color:var(--muted);font-size:13px}
+.f{display:flex;flex-direction:column;gap:5px;min-width:0}
+.full{grid-column:1/-1}
+label,.lbl{font-weight:500;font-size:13.5px}
+.req::after{content:" *";color:var(--accent)}
+.why{font-weight:400;color:var(--muted);font-size:12px}
+input[type=text],input[type=email],input[type=tel],input[type=url],select,textarea{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:9px 11px;width:100%;box-sizing:border-box}
+textarea{min-height:84px;resize:vertical}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.checks{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13.5px;cursor:pointer;background:var(--bg)}
+.chip:has(input:checked){border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.chip input{accent-color:var(--accent);margin:0}
+.single{display:flex;gap:8px;align-items:flex-start;font-size:14px}
+.single input{accent-color:var(--accent);margin-top:4px}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding-block:12px calc(12px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.bar .in{max-width:760px;margin:0 auto;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+button{font:inherit;font-weight:600;border-radius:8px;padding:10px 18px;cursor:pointer;border:1px solid var(--line);background:var(--bg);color:var(--fg)}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+#status{font-size:13.5px;color:var(--muted)}
+#status.ok{color:var(--ok)}
+#copybox{width:100%;min-height:120px;font-family:ui-monospace,monospace;font-size:12px}
+@media (max-width:560px){fieldset{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">AWS re:Invent 2026 · Las Vegas · 29 nov – 4 dic</div>
+    <h1>Datos para las invitaciones</h1>
+    <p>Con esto Claude llena los formularios de 207 eventos. Los campos con * los piden casi todos. Puedes escribir en español: Claude los traduce al inglés. Al terminar toca <b>Guardar</b> y avísale a Claude en el chat.</p>
+  </header>
+
+  <form id="form" novalidate><div class="stack">
+
+    <fieldset>
+      <legend>Tú</legend>
+      <div class="f"><label class="req" for="first_name">Nombre</label><input type="text" id="first_name" autocomplete="given-name"></div>
+      <div class="f"><label class="req" for="last_name">Apellido</label><input type="text" id="last_name" autocomplete="family-name"></div>
+      <div class="f"><label class="req" for="job_title">Cargo</label><input type="text" id="job_title" placeholder="Ej. Ingeniera de datos"></div>
+      <div class="f"><label class="req" for="phone">Celular con código de país</label><input type="tel" id="phone" placeholder="+591 70000000"></div>
+      <div class="f full"><label class="req" for="linkedin">LinkedIn</label><input type="url" id="linkedin" placeholder="https://www.linkedin.com/in/…"></div>
+      <div class="f"><label for="twitter">X / Twitter</label><input type="text" id="twitter" placeholder="@usuario"></div>
+      <div class="f"><label for="github">GitHub</label><input type="text" id="github"></div>
+      <div class="f"><label class="req" for="city">Ciudad</label><input type="text" id="city"></div>
+      <div class="f"><label class="req" for="country">País</label><input type="text" id="country"></div>
+      <div class="f"><label for="state">Estado / departamento</label><input type="text" id="state"></div>
+      <div class="f"><label for="dietary">Restricciones alimentarias</label><input type="text" id="dietary" placeholder="Ninguna"></div>
+      <div class="f"><label for="shirt">Talla de ropa <span class="why">· algunos regalan chaquetas o poleras</span></label>
+        <select id="shirt"><option value="">—</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select></div>
+      <label class="single full"><input type="checkbox" id="over21"> Confirmo que tengo 21 años o más (varios eventos con alcohol lo exigen)</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Empresa</legend>
+      <div class="f"><label class="req" for="company">Nombre de la empresa</label><input type="text" id="company"></div>
+      <div class="f"><label class="req" for="email">Correo de trabajo</label><input type="email" id="email" placeholder="tu@empresa.com"></div>
+      <div class="f"><label class="req" for="website">Sitio web</label><input type="url" id="website" placeholder="https://"></div>
+      <div class="f"><label class="req" for="industry">Industria</label><input type="text" id="industry" placeholder="Ej. Logística, Banca, Software"></div>
+      <div class="f"><label class="req" for="company_size">Tamaño de la empresa</label>
+        <select id="company_size"><option value="">Elige</option><option>1-99</option><option>100-299</option><option>300-2,999</option><option>3,000+</option></select></div>
+      <div class="f"><label for="funding">Si es startup: ronda más alta</label>
+        <select id="funding"><option value="">No aplica</option><option>Bootstrapped</option><option>Friends &amp; Family</option><option>Pre-Seed</option><option>Seed</option><option>Series A</option><option>Series B</option><option>Series C+</option></select></div>
+      <div class="f full"><label class="req" for="company_desc">Qué hace la empresa, en 1 o 2 frases</label><textarea id="company_desc"></textarea></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Tu rol</legend>
+      <div class="f"><label class="req" for="seniority">Nivel en la organización</label>
+        <select id="seniority"><option value="">Elige</option><option>C-suite / Executive (CEO, CTO, COO)</option><option>VP / Head of Department</option><option>Director</option><option>Manager / Team Lead</option><option>Individual contributor</option></select></div>
+      <div class="f"><label class="req" for="budget_role">Rol en presupuesto y compras</label>
+        <select id="budget_role"><option value="">Elige</option><option>Budget Owner/Decision Maker</option><option>Influencer</option><option>End User</option><option>Not Involved</option></select></div>
+      <div class="f full"><label class="req" for="department">Área</label>
+        <select id="department"><option value="">Elige</option><option>Executive</option><option>Engineering / Development</option><option>IT / Infrastructure / Cloud</option><option>Security</option><option>Data / Analytics / AI</option><option>DevOps / Platform</option><option>FinOps / Finance</option><option>Product</option><option>Sales / Marketing / Partnerships</option></select></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Nube y conferencia</legend>
+      <div class="f"><label class="req" for="cloud_relation">Relación con tu proveedor de nube principal</label>
+        <select id="cloud_relation"><option value="">Elige</option><option>I run workloads as a customer</option><option>We build on it for our clients</option><option>Partner</option><option>Through a reseller or partner</option><option>No relationship yet</option></select></div>
+      <div class="f"><label class="req" for="cloud_usage">¿Lo usan hoy?</label>
+        <select id="cloud_usage"><option value="">Elige</option><option>Yes, in production</option><option>Yes, in development</option><option>Evaluating it</option><option>No, not yet</option></select></div>
+      <div class="f"><label class="req" for="main_cloud">Nube principal</label>
+        <select id="main_cloud"><option value="">Elige</option><option>AWS</option><option>Azure</option><option>GCP</option><option>Multi-cloud</option><option>Other</option></select></div>
+      <div class="f"><label class="req" for="cloud_spend">Gasto anual en nube</label>
+        <select id="cloud_spend"><option value="">Elige</option><option>Less than $500K</option><option>$500K to $2M</option><option>$2M to $5M</option><option>$5M to $10M</option><option>More than $10M</option></select></div>
+      <div class="f"><label class="req" for="conference_registered">¿Tienes entrada a la conferencia oficial?</label>
+        <select id="conference_registered"><option value="">Elige</option><option>Yes</option><option>No</option></select></div>
+      <div class="f"><label for="manage_spend">¿Gestionas el gasto de nube o IA?</label>
+        <select id="manage_spend"><option value="">Elige</option><option>Yes</option><option>No</option></select></div>
+      <div class="f full"><span class="lbl">Días que estarás en la ciudad</span><div class="checks" id="days"></div></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Intereses</legend>
+      <p class="hint">Los formularios preguntan qué te trae o por qué deberías tener un lugar. Con esto Claude arma cada respuesta.</p>
+      <div class="f full"><span class="lbl">Temas que te interesan</span>
+        <div class="checks" id="topics">
+          <label class="chip"><input type="checkbox" value="Generative AI">IA generativa</label>
+          <label class="chip"><input type="checkbox" value="AI agents">Agentes de IA</label>
+          <label class="chip"><input type="checkbox" value="FinOps / cloud cost">FinOps</label>
+          <label class="chip"><input type="checkbox" value="Security">Seguridad</label>
+          <label class="chip"><input type="checkbox" value="Data & analytics">Datos</label>
+          <label class="chip"><input type="checkbox" value="Observability">Observabilidad</label>
+          <label class="chip"><input type="checkbox" value="DevOps / platform engineering">DevOps</label>
+          <label class="chip"><input type="checkbox" value="Cloud migration & modernization">Migración</label>
+          <label class="chip"><input type="checkbox" value="Kubernetes">Kubernetes</label>
+          <label class="chip"><input type="checkbox" value="Voice AI">IA de voz</label>
+          <label class="chip"><input type="checkbox" value="Developer tools">Dev tools</label>
+          <label class="chip"><input type="checkbox" value="Startups / investors">Startups</label>
+        </div></div>
+      <div class="f full"><label class="req" for="pitch">Por qué quieres ir / qué buscas</label><textarea id="pitch"></textarea></div>
+      <div class="f full"><label for="challenge">Tu mayor desafío actual con nube o IA</label><textarea id="challenge"></textarea></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Preferencias</legend>
+      <div class="f"><label for="heard">¿Cómo te enteraste?</label><input type="text" id="heard" value="Conference Parties"></div>
+      <div class="f"><label for="invited_by">¿Te invitó alguien?</label><input type="text" id="invited_by" placeholder="Vacío si nadie"></div>
+      <label class="single full"><input type="checkbox" id="marketing_optin"> Aceptar correos de marketing opcionales (sin marcar: solo se acepta lo obligatorio para poder enviar)</label>
+      <label class="single full"><input type="checkbox" id="include_exec"> Anotarme también en eventos solo para ejecutivos, CTO o CISO</label>
+      <label class="single full"><input type="checkbox" id="include_waitlist" checked> Unirme a la lista de espera de los eventos llenos</label>
+      <label class="single full"><input type="checkbox" id="include_paid"> Incluir eventos pagados</label>
+      <div class="f full"><label for="notes">Otras notas para Claude</label><textarea id="notes"></textarea></div>
+    </fieldset>
+
+    <fieldset id="copyset" hidden>
+      <legend>Copia manual</legend>
+      <p class="hint">No se pudo guardar desde aquí. Copia este texto y pégalo en el chat.</p>
+      <textarea id="copybox" class="full" readonly></textarea>
+    </fieldset>
+  </div></form>
+</div>
+
+<div class="bar"><div class="in">
+  <button class="primary" id="save" type="button">Guardar</button>
+  <button id="copy" type="button">Copiar como texto</button>
+  <span id="status" role="status">Sin guardar</span>
+</div></div>
+
+<script>
+const DAYS = [["Sun Nov 29","Dom 29"],["Mon Nov 30","Lun 30"],["Tue Dec 1","Mar 1"],["Wed Dec 2","Mié 2"],["Thu Dec 3","Jue 3"],["Fri Dec 4","Vie 4"]];
+const DEMO = {first_name:"Ana",last_name:"Rojas",job_title:"Ingeniera de datos",phone:"+591 70000000",linkedin:"https://www.linkedin.com/in/ana-rojas-ejemplo/",github:"anarojas-demo",city:"Cochabamba",country:"Bolivia",state:"Cochabamba",dietary:"Vegetariana",shirt:"S",over21:true,company:"Andes Data (ejemplo)",email:"ana@andesdata.example",website:"https://andesdata.example",industry:"Software / analítica",company_size:"1-99",funding:"Seed",company_desc:"Startup que ayuda a cooperativas a analizar sus datos de ventas con IA.",seniority:"Manager / Team Lead",budget_role:"Influencer",department:"Data / Analytics / AI",cloud_relation:"I run workloads as a customer",cloud_usage:"Yes, in production",main_cloud:"AWS",cloud_spend:"Less than $500K",conference_registered:"Yes",manage_spend:"No",topics:["Generative AI","Data & analytics"],pitch:"Quiero aprender cómo otros equipos llevan IA a producción y conocer gente de datos.",challenge:"Ordenar datos de muchas fuentes antes de usar IA.",heard:"Conference Parties",include_waitlist:true};
+
+const daysBox=document.getElementById('days');
+DAYS.forEach(([value,label])=>{const l=document.createElement('label');l.className='chip';const i=document.createElement('input');i.type='checkbox';i.value=value;l.append(i,document.createTextNode(label));daysBox.append(l)});
+
+const form=document.getElementById('form');
+const statusEl=document.getElementById('status');
+const groups=['days','topics'];
+function collect(){
+  const o={};
+  form.querySelectorAll('input[id],select[id],textarea[id]').forEach(el=>{
+    if(el.id==='copybox')return;
+    o[el.id]=el.type==='checkbox'?el.checked:el.value.trim();
+  });
+  groups.forEach(g=>{o[g]=[...document.querySelectorAll('#'+g+' input:checked')].map(i=>i.value)});
+  o.updated_at=new Date().toISOString();
+  return o;
+}
+function fill(o){
+  if(!o)return;
+  form.querySelectorAll('input[id],select[id],textarea[id]').forEach(el=>{
+    if(!(el.id in o))return;
+    if(el.type==='checkbox')el.checked=!!o[el.id];else el.value=o[el.id]??'';
+  });
+  groups.forEach(g=>{const v=o[g]||[];document.querySelectorAll('#'+g+' input').forEach(i=>{i.checked=v.includes(i.value)})});
+}
+function setStatus(t,ok){statusEl.textContent=t;statusEl.className=ok?'ok':''}
+function showCopy(){
+  const box=document.getElementById('copybox');
+  box.value=JSON.stringify(collect(),null,1);
+  document.getElementById('copyset').hidden=false;
+  return box;
+}
+if(true){fill({...DEMO,days:DAYS.slice(1,4).map(d=>d[0])});setStatus('Ejemplo con datos ficticios')}
+else{try{const d=localStorage.getItem('rsvp-draft');if(d)fill(JSON.parse(d))}catch(e){}}
+form.addEventListener('input',()=>{setStatus('Cambios sin guardar');try{localStorage.setItem('rsvp-draft',JSON.stringify(collect()))}catch(e){}});
+form.addEventListener('submit',e=>e.preventDefault());
+
+let ref=null;
+(async()=>{
+  try{
+    const db=await window.claude?.use?.('db');
+    if(!db)return;
+    ref=db.doc('perfil/datos');
+    const snap=await ref.get();
+    if(snap.exists&&location.hash!=='#demo'){fill(snap.data());setStatus('Datos guardados cargados',true)}
+  }catch(e){}
+})();
+
+document.getElementById('save').addEventListener('click',async()=>{
+  if(!ref){showCopy();setStatus('No se pudo guardar aquí: usa la copia manual');return}
+  setStatus('Guardando…');
+  try{await ref.set(collect());setStatus('Guardado. Avísale a Claude en el chat.',true)}
+  catch(e){showCopy();setStatus('No se pudo guardar: usa la copia manual')}
+});
+document.getElementById('copy').addEventListener('click',()=>{
+  const box=showCopy();
+  navigator.clipboard.writeText(box.value).then(()=>setStatus('Copiado. Pégalo en el chat.',true)).catch(()=>{box.focus();box.select();setStatus('Selecciona el texto y cópialo')});
+});
+</script>
+</body></html>

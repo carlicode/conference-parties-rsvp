@@ -1,0 +1,31 @@
+{
+  "lo_que_escribe_la_persona_en_espanol": {
+    "first_name": "Ana",
+    "last_name": "Rojas",
+    "job_title": "Ingeniera de datos",
+    "phone": "+591 70000000",
+    "company": "Andes Data (ejemplo)",
+    "email": "ana@andesdata.example",
+    "industry": "Software / analítica",
+    "company_desc": "Startup que ayuda a cooperativas a analizar sus datos de ventas con IA.",
+    "dietary": "Vegetariana",
+    "pitch": "Quiero aprender cómo otros equipos llevan IA a producción y conocer gente de datos.",
+    "days": ["Mon Nov 30", "Tue Dec 1", "Wed Dec 2"],
+    "include_exec": false,
+    "include_waitlist": true,
+    "marketing_optin": false
+  },
+  "lo_que_claude_usa_en_los_formularios_en_ingles": {
+    "first": "Ana",
+    "last": "Rojas",
+    "full": "Ana Rojas",
+    "title": "Data Engineer",
+    "phone": "+59170000000",
+    "company": "Andes Data",
+    "email": "ana@andesdata.example",
+    "industry": "Software / Analytics",
+    "company_desc": "Andes Data is a startup that helps cooperatives analyze their sales data with AI.",
+    "diet": "Vegetarian",
+    "why_attend": "I'm a Data Engineer at Andes Data, a startup that helps cooperatives analyze their sales data with AI. I'm coming to learn how other teams take AI to production and to meet people working in data."
+  }
+}
