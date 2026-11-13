@@ -3,6 +3,7 @@
  "description": "Sesiones de la comunidad: el track COM con speakers de LATAM y otras que la comunidad recomienda. Códigos, horarios, salas y speakers verificados contra el catálogo de re:Invent 2026.",
  "timezone": "America/Los_Angeles",
  "how_to_book": "Se reservan en el catálogo oficial de re:Invent buscando el código de la sesión. Requiere entrada a la conferencia.",
+ "walk_in_note": "Llega con tiempo: sin reserva, el acceso walk-in es por orden de llegada.",
  "duration_minutes": {
   "BREAKOUT SESSION": 60,
   "CHALK TALK": 60,
