@@ -67,7 +67,7 @@ python3 scripts/tracker_seed.py events.json targets.json tracker/
 
 Haz la carga una sola vez por conferencia. Si no hay herramienta de Artifacts, sigue solo con `log.txt`.
 
-**Sesiones de la comunidad.** Si en `references/sesiones/` hay un archivo para esta conferencia (hoy: `reinvent2026.json`, con el track COM de speakers de LATAM y la AIM407), pregúntale a la persona si quiere sumarlas a su lista. Solo si dice que sí:
+**Sesiones de la comunidad.** Si en `references/sesiones/` hay un archivo para esta conferencia (hoy: `reinvent2026.json`, con el track COM de speakers de LATAM, la AIM407 y un meetup en el AWS Builder Loft), pregúntale a la persona si quiere sumarlas a su lista. Solo si dice que sí:
 
 ```bash
 python3 scripts/sessions_seed.py references/sesiones/reinvent2026.json perfil.json tracker/
