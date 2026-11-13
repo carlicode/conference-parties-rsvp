@@ -66,8 +66,10 @@ def time_range(t: str) -> tuple:
         eh, em, emer = int(times[-1][0]), int(times[-1][1] or 0), times[-1][2]
         if not mer:  # "6–9PM": el inicio hereda el AM/PM del final
             mer = emer
-            if mer.lower().startswith("p") and h != 12 and h > eh:
-                mer = "am"  # "11–1PM" empieza a las 11 AM
+            # "11–1PM" y "10–12PM" empiezan por la mañana: la hora de inicio es mayor
+            # que la de fin cuando el 12 cuenta como 0. "12–1:30PM" empieza a las 12 PM.
+            if mer.lower().startswith("p") and h != 12 and h > eh % 12:
+                mer = "am"
         end = _to_minutes(eh, em, emer or mer)
     start = _to_minutes(h, mins, mer)
     if end is None:

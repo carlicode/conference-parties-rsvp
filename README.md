@@ -87,13 +87,13 @@ El ejemplo completo está en [`docs/ejemplo-perfil.json`](docs/ejemplo-perfil.js
 
 Con los días de Ana y sin eventos para ejecutivos, quedan **unos 90 eventos**. Claude le muestra la lista de los que descartó y por qué.
 
-### 6. Entras a Luma (solo una vez)
+### 6. Luma (casi siempre sin iniciar sesión)
 
-Luma pide iniciar sesión. Claude le dice a Ana:
+Luma deja registrarse como invitada, así que Claude llena esos eventos directamente con el correo de Ana. Solo si un evento exige sesión, Claude le dice:
 
 > Abre el navegador (Cmd+Shift+B) y entra a luma.com con tu correo y el código que te llega.
 
-Mientras Ana lo hace, Claude ya va llenando los formularios de otros sitios.
+Mientras Ana lo hace, Claude sigue con los formularios de otros sitios.
 
 ### 7. Claude llena formulario por formulario
 

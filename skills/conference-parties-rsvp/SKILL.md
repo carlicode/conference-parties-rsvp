@@ -73,7 +73,7 @@ Estados: `por-llenar`, `enviado`, `por-aprobar`, `aprobado`, `lista-espera`, `te
 
 Usa el navegador integrado (o Chrome si la persona lo pide). Trabaja en una pestaña aparte.
 
-1. **Luma primero, pero sin bloquearte**: pide a la persona que entre en luma.com en el navegador. Mientras tanto avanza con los demás sitios y vuelve a revisar la sesión de Luma de vez en cuando. Luma registra con el correo de la sesión, no con el del formulario: si la persona usa alias, dile que entre a Luma con la dirección con alias para que también aplique ahí.
+1. **Luma sin iniciar sesión**: la mayoría de los eventos de Luma deja registrarse como invitada. Abre el evento, haz clic en el botón de registro (Register, Request to Join, Inscribirse, Solicitar unirse) y llena el cuadro con el correo del perfil (con alias, si lo hay). Solo si un evento exige sesión, pídele a la persona que entre en luma.com y sigue con los demás sitios mientras tanto. Con sesión iniciada Luma usa el correo de la sesión: si la persona usa alias, dile que entre con esa dirección.
 2. **Por cada link**:
    - Abre la página. Si el formulario está detrás de un botón ("Register", "Request an invite"), haz clic.
    - Ejecuta `references/filler.js` con `__PROFILE__` reemplazado por el JSON de `perfil_en.json` (claves: first, last, full, email, company, title, phone, li, city, state, country, web, diet, industry). Llena lo común y te devuelve qué falta.
@@ -81,7 +81,7 @@ Usa el navegador integrado (o Chrome si la persona lo pide). Trabaja en una pest
    - Si hay alias y el sitio no acepta ese correo ("invalid email", "please use a valid/business email", el campo queda en rojo o el botón de enviar no avanza), vuelve a intentar con `email_base`, el correo original sin alias. Pasa en pocos sitios, así que no lo hagas por adelantado: intenta siempre primero con el alias. Anótalo en `log.txt` como `OK (sin alias) | ...` para que la persona sepa que los correos de ese evento no llevarán la etiqueta.
    - Casillas: marca solo las obligatorias (términos, privacidad, mayor de 21, aviso de fotos). Las de marketing quedan sin marcar salvo que la persona haya aceptado.
    - Envía, confirma que se registró (mensaje de "thank you", cambio de URL, "pending approval") y anota el resultado en `log.txt`: `OK | Evento | sitio`, `WAITLIST | ...`, `CLOSED | ...`, `NEEDS-USER (login/captcha) | ...`, `UNSURE | ...`, `SKIP | ...`.
-   - Actualiza el evento en la lista (`ArtifactData` `update` en `eventos/<id>` con `if_version`, campos `status`, `note` y `updated_at`): OK → `enviado`, o `por-aprobar` si la página dijo "pending approval" o "we'll review"; WAITLIST → `lista-espera`; CLOSED → `cerrado`; NEEDS-USER → `te-necesita` con el motivo en `note`; UNSURE → `dudoso`; SKIP → `descartado`. Si se envió sin alias, ponlo en `note`. Si la escritura falla por versión, vuelve a leer el documento: la persona pudo cambiarlo (por ejemplo a `no-voy`), y en ese caso no lo llenes.
+   - Actualiza el evento en la lista (`ArtifactData` `update` en `eventos/<id>` con `if_version`, campos `status`, `note` y `updated_at`): OK → `enviado` solo si la página confirma el registro ("you're in", "registered", "confirmed"). Si dijo "pending approval", "we'll review", "we'll be in touch", "interest list" o es un evento de invitación, queda en `por-aprobar`; WAITLIST → `lista-espera`; CLOSED → `cerrado`; NEEDS-USER → `te-necesita` con el motivo en `note`; UNSURE → `dudoso`; SKIP → `descartado`. Si se envió sin alias, ponlo en `note`. Si la escritura falla por versión, vuelve a leer el documento: la persona pudo cambiarlo (por ejemplo a `no-voy`), y en ese caso no lo llenes.
 3. Si una página tiene varios eventos (ej. un solo formulario con casillas para desayuno, almuerzo y happy hour), marca todos los que la persona quiere y cuéntalos por separado.
 4. Si una sesión está llena y la persona aceptó listas de espera, únete.
 5. Si un formulario se resiste, revisa `references/plataformas.md`: tiene las mañas de Luma, HubSpot, Marketo, Cvent, Swoogo y otras.
@@ -109,7 +109,7 @@ Necesita un conector de correo con sesión iniciada (por ejemplo Gmail). Antes d
 
 ## Paso 9. Llevar las fiestas al calendario (opcional)
 
-Pregúntale a la persona qué quiere en su calendario: solo lo confirmado (`enviado` y `aprobado`) o también lo pendiente (`por-aprobar` y `lista-espera`, como tentativo). La zona horaria es la de la ciudad de la conferencia (ej. `America/Los_Angeles` para Las Vegas), no la de la persona.
+Pregúntale a la persona qué quiere en su calendario: solo lo confirmado (`enviado`, que significa que la página confirmó el registro, y `aprobado`) o también lo pendiente (`por-aprobar` y `lista-espera`, como tentativo). La zona horaria es la de la ciudad de la conferencia (ej. `America/Los_Angeles` para Las Vegas), no la de la persona.
 
 **Con un conector de calendario** (por ejemplo Google Calendar):
 1. Por cada evento elegido sin `calendar_event_id`, crea un evento en el calendario principal con `starts` y `ends` en la zona de la ciudad. Título: el nombre del evento, con "Pendiente: " delante si es tentativo. Lugar: `location`. Descripción: patrocinador, `entry`, `note` y el link. Si el conector lo permite, márcalo como disponible ("free") cuando sea tentativo.
