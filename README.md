@@ -123,7 +123,7 @@ Y le van llegando los correos de confirmación.
 
 Claude también le deja a Ana una página con todos los eventos agrupados por día y el estado de cada uno: por llenar, enviado, pendiente de aprobación, aprobado, lista de espera, te necesita o descartado. Claude la actualiza al enviar cada formulario. Ana puede filtrarla, buscar y marcar "No voy" en lo que ya no le interesa.
 
-Si Ana quiere, Claude también suma a la lista las sesiones de la comunidad: para re:Invent 2026, las 6 del track COM con speakers de LATAM y la builders' session AIM407 sobre multi-agentes con Strands. Quedan todos los horarios que caen en sus días, también las repeticiones, como referencia para que Ana vaya a la que le acomode. Cada uno trae una nota: sin reserva, el acceso walk-in es por orden de llegada, así que hay que llegar con tiempo. Estas sesiones se reservan en el catálogo oficial con la cuenta de Ana; Claude le da los códigos y no entra al catálogo.
+Si Ana quiere, Claude también suma a la lista las sesiones de la comunidad: para re:Invent 2026, las 6 del track COM con speakers de LATAM la builders' session AIM407 sobre multi-agentes con Strands y el meetup de Matias Santoro en el AWS Builder Loft sobre agentes que consumen cualquier API con AgentCore. Quedan todos los horarios que caen en sus días, también las repeticiones, como referencia para que Ana vaya a la que le acomode. Cada uno trae una nota: sin reserva, el acceso walk-in es por orden de llegada, así que hay que llegar con tiempo. Estas sesiones se reservan en el catálogo oficial con la cuenta de Ana; Claude le da los códigos y no entra al catálogo.
 
 ### 10. Limpieza de correos (opcional)
 

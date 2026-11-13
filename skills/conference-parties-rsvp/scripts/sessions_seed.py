@@ -57,23 +57,25 @@ def main() -> None:
         slots = sorted(s["occurrences"], key=lambda o: o["starts"])
         starts = [datetime.strptime(o["starts"], "%Y-%m-%dT%H:%M") for o in slots]
         minutes = durations.get(s["format"], 60)
-        codes = [o.get("code", s["code"]) for o in slots]  # COM312-R, COM312-R1...
+        base = s.get("code") or s["id"]  # los meetups no tienen código de catálogo
+        codes = [o.get("code", base) for o in slots]  # COM312-R, COM312-R1...
         for i, (o, dt) in enumerate(zip(slots, starts)):
             others = [f"{codes[j]} el {human_date(d)}" for j, d in enumerate(starts) if j != i]
             in_days = not days or short_day(dt) in days
             status = "por-reservar" if in_days else "descartado"
             note = " ".join(x for x in [
                 "" if in_days else "Fuera de tus días.",
-                f"Búscala en el catálogo con el código {codes[i]}.",
+                s.get("where_note") or f"Búscala en el catálogo con el código {codes[i]}.",
                 f"Se repite: {', '.join(others)}." if others else "",
                 walk_in,
             ] if x)
             active += in_days
-            end = dt + timedelta(minutes=minutes)
+            end = (datetime.strptime(o["ends"], "%Y-%m-%dT%H:%M") if o.get("ends")
+                   else dt + timedelta(minutes=minutes))
             doc_id = f"ses-{codes[i].lower()}"
             doc = {
                 "kind": "sesion", "code": codes[i], "track": s.get("track", ""),
-                "event": f"{s['code']} · {s['title']}",
+                "event": f"{s['code']} · {s['title']}" if s.get("code") else s["title"],
                 "sponsor": f"{s['format'].capitalize()} · {s['speakers']}",
                 "summary": s.get("summary", ""),
                 "day": short_day(dt), "date": dt.strftime("%Y-%m-%d"),

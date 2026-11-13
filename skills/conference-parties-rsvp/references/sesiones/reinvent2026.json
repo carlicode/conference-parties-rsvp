@@ -133,6 +133,22 @@
      "location": "MGM Grand, Level 1, Room 104"
     }
    ]
+  },
+  {
+   "id": "LOFT-AGENTCORE-API",
+   "track": "AWS Builder Loft",
+   "format": "MEETUP",
+   "title": "Build an AI agent that consumes any API with AgentCore",
+   "speakers": "Matias Santoro",
+   "summary": "Meetup en el AWS Builder Loft sobre cómo construir un agente que consuma cualquier API con AgentCore.",
+   "where_note": "No está en el catálogo de sesiones: es un meetup dentro del AWS Builder Loft.",
+   "occurrences": [
+    {
+     "starts": "2026-12-02T13:30",
+     "ends": "2026-12-02T14:15",
+     "location": "AWS Builder Loft, Caesars Forum, Level 1, Forum 120 (Content Hub)"
+    }
+   ]
   }
  ]
 }
