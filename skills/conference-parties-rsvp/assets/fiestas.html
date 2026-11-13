@@ -42,7 +42,7 @@ section h2{font-family:var(--display);font-size:18px;margin:8px 0 8px}
 .entry::before{content:"Entrada: ";font-weight:600}
 select.st{font:inherit;font-size:13px;font-weight:600;border-radius:999px;padding:4px 8px;border:1px solid currentColor;background:var(--surface);color:var(--muted);max-width:190px}
 select.st.s-aprobado{color:var(--ok)} select.st.s-te-necesita{color:var(--accent)} select.st.s-rechazado,select.st.s-cerrado{color:var(--bad)}
-select.st.s-por-aprobar,select.st.s-lista-espera,select.st.s-dudoso{color:var(--warn)} select.st.s-enviado{color:var(--info)}
+select.st.s-por-aprobar,select.st.s-lista-espera,select.st.s-dudoso{color:var(--warn)} select.st.s-enviado,select.st.s-por-reservar{color:var(--info)} select.st.s-reservado{color:var(--ok)}
 .row.dim .name{color:var(--muted);font-weight:500}
 @media (max-width:560px){.row{grid-template-columns:1fr}.st{justify-self:start}}
 </style>
@@ -63,7 +63,8 @@ select.st.s-por-aprobar,select.st.s-lista-espera,select.st.s-dudoso{color:var(--
 const STATUSES=[
   ['por-llenar','Por llenar'],['enviado','Enviado'],['por-aprobar','Pendiente de aprobación'],
   ['aprobado','Aprobado'],['lista-espera','Lista de espera'],['te-necesita','Te necesita'],
-  ['dudoso','Dudoso'],['rechazado','Rechazado'],['cerrado','Cerrado o lleno'],
+  ['dudoso','Dudoso'],['por-reservar','Sesión por reservar'],['reservado','Sesión reservada'],
+  ['rechazado','Rechazado'],['cerrado','Cerrado o lleno'],
   ['no-voy','No voy'],['descartado','Descartado'],
 ];
 const LABEL=Object.fromEntries(STATUSES);
@@ -73,6 +74,7 @@ const DEMO=[
   {id:'d2',event:'Breakfast con equipos de plataforma',sponsor:'Empresa Demo',day:'Tue Dec 1',date:'2026-12-01',time:'8–9AM',sort:'2026-12-01 0480',location:'Café ficticio',url:'https://example.com/b',status:'por-aprobar',note:'El formulario dijo "pending approval"',entry:''},
   {id:'d3',event:'Cloud Night',sponsor:'Otra Demo',day:'Tue Dec 1',date:'2026-12-01',time:'7–10PM',sort:'2026-12-01 1140',location:'Club ficticio',url:'https://example.com/c',status:'te-necesita',note:'Pide login de Eventbrite',entry:''},
   {id:'d4',event:'AI Leaders Dinner',sponsor:'Demo Inc.',day:'Wed Dec 2',date:'2026-12-02',time:'7–9PM',sort:'2026-12-02 1140',location:'Restaurante ficticio',url:'https://example.com/d',status:'descartado',note:'Fuera de tus días o preferencias',entry:''},
+  {id:'d6',kind:'sesion',event:'COM000 · Sesión de ejemplo de la comunidad',sponsor:'Chalk talk · Speakers ficticios',summary:'Resumen corto de la sesión.',day:'Tue Dec 1',date:'2026-12-01',time:'1PM–2PM',sort:'2026-12-01 0780',location:'Sala ficticia',url:'',status:'por-reservar',note:'Búscala en el catálogo con el código COM000.',entry:''},
   {id:'d5',event:'Rooftop Mixer',sponsor:'Demo Labs',day:'Wed Dec 2',date:'2026-12-02',time:'8–11PM',sort:'2026-12-02 1200',location:'Terraza ficticia',url:'https://example.com/e',status:'lista-espera',note:'Lleno, te uniste a la lista',entry:''},
 ];
 
@@ -133,6 +135,7 @@ function render(){
       if(/^https?:\/\//i.test(r.url||'')){const a=el('a',null,r.event);a.href=r.url;a.target='_blank';a.rel='noopener noreferrer';name.append(a)}else name.textContent=r.event;
       main.append(name,el('div','meta',[r.sponsor,r.location].filter(Boolean).join(' · ')));
       if(r.entry)main.append(el('div','entry',r.entry));
+      if(r.summary)main.append(el('div','note',r.summary));
       if(r.note)main.append(el('div','note',r.note));
       if(r.calendar_event_id)main.append(el('div','meta','En tu calendario'));
       row.append(el('div','time',r.time||''),main,statusSelect(r));

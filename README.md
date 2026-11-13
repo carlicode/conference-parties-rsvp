@@ -123,6 +123,8 @@ Y le van llegando los correos de confirmación.
 
 Claude también le deja a Ana una página con todos los eventos agrupados por día y el estado de cada uno: por llenar, enviado, pendiente de aprobación, aprobado, lista de espera, te necesita o descartado. Claude la actualiza al enviar cada formulario. Ana puede filtrarla, buscar y marcar "No voy" en lo que ya no le interesa.
 
+Si Ana quiere, Claude también suma a la lista las sesiones de la comunidad: para re:Invent 2026, las 6 del track COM con speakers de LATAM. De cada sesión queda marcado para reservar el primer horario que cae en sus días, y las repeticiones quedan como alternativa. Estas sesiones se reservan en el catálogo oficial con la cuenta de Ana; Claude le da los códigos y no entra al catálogo.
+
 ### 10. Limpieza de correos (opcional)
 
 Si Ana conecta su correo (por ejemplo Gmail), Claude revisa los mensajes de los eventos. Guarda los que sirven para entrar: entradas, QR, "you're in", invitaciones de calendario y cambios de lugar u hora. Manda el resto a la papelera: newsletters, marketing y "thanks for your interest". Con cada correo actualiza la lista; por ejemplo, un "approved" deja el evento como aprobado y anota en qué correo está la entrada. La primera vez muestra qué va a borrar y espera el sí de Ana. Funciona mejor con el alias activado, porque todo llega a `ana+riv26@...`. Si el conector no puede borrar, Claude le da a Ana una búsqueda de Gmail para borrar el resto ella misma.
@@ -174,8 +176,10 @@ conference-parties-rsvp/
     │   ├── luma_questions.py     ← lee las preguntas de Luma
     │   ├── filter_events.py      ← filtra por tus días y preferencias
     │   ├── tracker_seed.py       ← prepara la lista de fiestas
-    │   └── calendar_ics.py       ← arma el .ics para tu calendario
+    │   ├── calendar_ics.py       ← arma el .ics para tu calendario
+    │   └── sessions_seed.py      ← suma las sesiones de la comunidad a la lista
     └── references/
         ├── filler.js             ← llena los campos comunes de un formulario
-        └── plataformas.md        ← trucos para Luma, HubSpot, Cvent, etc.
+        ├── plataformas.md        ← trucos para Luma, HubSpot, Cvent, etc.
+        └── sesiones/             ← sesiones de la comunidad por conferencia
 ```
