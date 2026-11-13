@@ -112,16 +112,17 @@ Al terminar, Ana recibe algo así:
 
 | Estado | Cantidad |
 |---|---|
-| ✅ Enviados | 74 |
+| ✅ Enviados (confirmados por la página) | 56 |
+| 🕓 Pendientes de aprobación ("we'll review", "request an invite") | 18 |
 | ⏳ En lista de espera | 6 |
 | 🚫 Cerrados o llenos | 3 |
-| ✋ Necesitan a Ana (login de Eventbrite/Meetup o CAPTCHA) | 5 |
+| ✋ Necesitan a Ana (login de Eventbrite/Meetup, CAPTCHA, elegir un horario) | 5 |
 
-Y le van llegando los correos de confirmación.
+"Enviado" significa que la página confirmó el registro. Si solo dijo "te avisaremos", queda como pendiente de aprobación. Y le van llegando los correos de confirmación.
 
 ### 9. La lista de fiestas
 
-Claude también le deja a Ana una página con todos los eventos agrupados por día y el estado de cada uno: por llenar, enviado, pendiente de aprobación, aprobado, lista de espera, te necesita o descartado. Claude la actualiza al enviar cada formulario. Ana puede filtrarla, buscar y marcar "No voy" en lo que ya no le interesa.
+Claude también le deja a Ana una página con todos los eventos agrupados por día y el estado de cada uno: por llenar, enviado, pendiente de aprobación, aprobado, lista de espera, te necesita, rechazado, cerrado, "no voy" o descartado (y, para las sesiones, por reservar, reservada o meetup walk-in). Claude la actualiza al enviar cada formulario. Ana puede filtrarla, buscar y marcar "No voy" en lo que ya no le interesa.
 
 Si Ana quiere, Claude también suma a la lista las sesiones de la comunidad de esa conferencia (para re:Invent 2026 están en `references/sesiones/reinvent2026.json`). Entran todos los horarios que caen en sus días, repeticiones incluidas, como referencia. Las sesiones del catálogo se reservan con la cuenta de Ana y los meetups son walk-in. En los dos casos conviene llegar con tiempo.
 
@@ -131,7 +132,7 @@ Si Ana conecta su correo (por ejemplo Gmail), Claude revisa los mensajes de los 
 
 ### 11. Las fiestas en el calendario (opcional)
 
-Ana elige si quiere en su calendario solo lo confirmado o también lo pendiente. Si tiene Google Calendar conectado, Claude crea cada evento con la hora de Las Vegas, el lugar y en qué correo está la entrada. Los pendientes quedan como tentativos, con "Pendiente:" en el título. Cuando un evento se aprueba, se rechaza o Ana marca "No voy", Claude lo actualiza o lo borra del calendario. Sin conector, Claude genera un archivo `fiestas.ics` que se importa en Google Calendar, Apple Calendar u Outlook. Claude nunca agrega invitados a esos eventos.
+Ana elige si quiere en su calendario solo lo confirmado o también lo pendiente. Si tiene Google Calendar conectado, Claude crea cada evento con la hora de Las Vegas, el lugar y en qué correo está la entrada. Solo cuentan como confirmados los `enviado` (la página confirmó el registro), los `aprobado` y las sesiones reservadas. Los pendientes quedan como tentativos, con "Pendiente:" en el título, y los meetups walk-in con "Walk-in:". Cuando un evento se aprueba, se rechaza o Ana marca "No voy", Claude lo actualiza o lo borra del calendario. Sin conector, Claude genera un archivo `fiestas.ics` que se importa en Google Calendar, Apple Calendar u Outlook. Claude nunca agrega invitados a esos eventos.
 
 ---
 
@@ -148,13 +149,25 @@ Ana elige si quiere en su calendario solo lo confirmado o también lo pendiente.
 
 **¿Dónde quedan mis datos?** En la página privada que crea Claude (solo tú la ves) y en tu computadora mientras dura la sesión. Se envían únicamente a los formularios de los eventos.
 
-**¿Cómo separo los correos de los eventos?** Activa el alias en la página de datos. Los formularios reciben `tu+riv26@empresa.com`, que llega a tu bandeja normal. Después, en Gmail, busca `to:(tu+riv26@empresa.com)` para encontrarlos todos y crea un filtro para etiquetarlos o borrarlos. En Outlook, usa una regla "enviado a" esa dirección. Funciona en Gmail, Google Workspace y Outlook / Microsoft 365; con otros proveedores, mándate un correo de prueba antes. Si algún sitio no acepta el correo con alias (pasa en pocos), Claude lo envía con tu correo original y te avisa cuáles fueron. En Luma, entra con la dirección con alias para que también aplique ahí.
+**¿Cómo separo los correos de los eventos?** Activa el alias en la página de datos. Los formularios reciben `tu+riv26@empresa.com`, que llega a tu bandeja normal. Después, en Gmail, busca `to:(tu+riv26@empresa.com)` para encontrarlos todos y crea un filtro para etiquetarlos o borrarlos. En Outlook, usa una regla "enviado a" esa dirección. Funciona en Gmail, Google Workspace y Outlook / Microsoft 365; con otros proveedores, mándate un correo de prueba antes. Si algún sitio no acepta el correo con alias (pasa en pocos), Claude lo envía con tu correo original y te avisa cuáles fueron. En Luma el alias también aplica: se registra como invitada con el correo que escribe en el formulario.
 
 **¿Puedo usarla para otra conferencia?** Sí, cualquier página de conferenceparties.com: pega su link.
 
 **¿Puedo anotarme solo en algunos eventos?** Sí. Elige tus días en la página o dile a Claude cuáles quieres.
 
 **¿Cuánto tarda?** Unos 2 o 3 minutos por formulario. Para 100 eventos, déjalo trabajando un buen rato.
+
+---
+
+## Estado
+
+Probada con **AWS re:Invent 2026**: 207 eventos extraídos y decenas de registros enviados en formularios de Luma, HubSpot, Marketo, Cvent, Eventbrite, Swoogo y páginas propias. Ya probado: la página de datos, el llenado de formularios, el filtro por días, los scripts de la lista, del calendario `.ics` y de las sesiones.
+
+Todavía sin probar de punta a punta: la lista de fiestas publicada leyendo la base real, los pasos de Gmail y Google Calendar con conectores reales, y los datos de las sesiones contra el catálogo oficial. La captura `docs/pagina-datos.png` aún no muestra el campo del alias.
+
+## Créditos
+
+Alias de correo, lista de fiestas, limpieza de correos, calendario y sesiones de la comunidad: [David Victoria](https://github.com/davidvictoria). Skill original y ajustes: [carlicode](https://github.com/carlicode).
 
 ---
 
