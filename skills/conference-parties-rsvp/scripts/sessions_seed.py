@@ -55,21 +55,22 @@ def main() -> None:
         starts = [datetime.strptime(o["starts"], "%Y-%m-%dT%H:%M") for o in slots]
         chosen = next((i for i, dt in enumerate(starts) if not days or short_day(dt) in days), None)
         minutes = durations.get(s["format"], 60)
+        codes = [o.get("code", s["code"]) for o in slots]  # COM312-R, COM312-R1...
         for i, (o, dt) in enumerate(zip(slots, starts)):
-            others = [human_date(d) for j, d in enumerate(starts) if j != i]
+            others = [f"{codes[j]} el {human_date(d)}" for j, d in enumerate(starts) if j != i]
             if i == chosen:
                 status = "por-reservar"
-                note = f"También el {', '.join(others)}." if others else ""
+                note = f"Se repite: {', '.join(others)}." if others else ""
             elif chosen is not None:
                 status = "descartado"
-                note = f"Repetición: elegimos el {human_date(starts[chosen])}. Si esta te cuadra mejor, cambia los dos estados."
+                note = f"Repetición: elegimos {codes[chosen]} el {human_date(starts[chosen])}. Si esta te cuadra mejor, cambia los dos estados."
             else:
                 status = "descartado"
                 note = "Fuera de tus días."
             end = dt + timedelta(minutes=minutes)
-            doc_id = f"ses-{s['code'].lower()}-{i + 1}"
+            doc_id = f"ses-{codes[i].lower()}"
             doc = {
-                "kind": "sesion", "code": s["code"],
+                "kind": "sesion", "code": codes[i], "track": s.get("track", ""),
                 "event": f"{s['code']} · {s['title']}",
                 "sponsor": f"{s['format'].capitalize()} · {s['speakers']}",
                 "summary": s.get("summary", ""),
@@ -79,7 +80,7 @@ def main() -> None:
                 "starts": dt.strftime("%Y-%m-%dT%H:%M"), "ends": end.strftime("%Y-%m-%dT%H:%M"),
                 "location": o["location"], "url": s.get("url", ""), "platform": "sesion",
                 "status": status,
-                "note": " ".join(x for x in [note, f"Búscala en el catálogo con el código {s['code']}."] if x),
+                "note": " ".join(x for x in [note, f"Búscala en el catálogo con el código {codes[i]}."] if x),
                 "entry": "", "updated_at": now,
             }
             path = os.path.join(out_dir, f"{doc_id}.json")

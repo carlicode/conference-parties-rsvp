@@ -1,65 +1,136 @@
 {
  "conference": "AWS re:Invent 2026",
- "track": "Comunidad (COM) con speakers de LATAM",
+ "description": "Sesiones de la comunidad: el track COM con speakers de LATAM y otras que la comunidad recomienda. Códigos, horarios, salas y speakers verificados contra el catálogo de re:Invent 2026.",
  "timezone": "America/Los_Angeles",
  "how_to_book": "Se reservan en el catálogo oficial de re:Invent buscando el código de la sesión. Requiere entrada a la conferencia.",
- "duration_minutes": {"BREAKOUT SESSION": 60, "CHALK TALK": 60, "CODE TALK": 60, "LIGHTNING TALK": 20},
+ "duration_minutes": {
+  "BREAKOUT SESSION": 60,
+  "CHALK TALK": 60,
+  "CODE TALK": 60,
+  "LIGHTNING TALK": 20,
+  "BUILDERS' SESSION": 60
+ },
  "sessions": [
   {
-   "code": "COM312", "format": "CHALK TALK",
+   "code": "COM312",
+   "track": "Comunidad (COM)",
+   "format": "CHALK TALK",
    "title": "Giving Your AI Agent a Wallet: The Architecture of Spend Control",
-   "speakers": "Sebastian Marines y David Victoria",
+   "speakers": "Sebastian Marines y David Victoria (Caylent)",
    "summary": "En el pizarrón diseñan un agente que gasta bajo un presupuesto estricto con AgentCore Payments, micropagos x402 y Cedar, y luego lo rompen juntos.",
    "occurrences": [
-    {"starts": "2026-11-30T13:30", "location": "Caesars Forum, Level 1, Alliance 305"},
-    {"starts": "2026-12-03T14:30", "location": "Caesars Palace, Promenade South, Octavius 11"}
+    {
+     "starts": "2026-11-30T13:30",
+     "location": "Caesars Forum, Level 1, Alliance 305",
+     "code": "COM312-R"
+    },
+    {
+     "starts": "2026-12-03T14:30",
+     "location": "Caesars Palace, Promenade South, Octavius 11",
+     "code": "COM312-R1"
+    }
    ]
   },
   {
-   "code": "COM317", "format": "CODE TALK",
+   "code": "COM317",
+   "track": "Comunidad (COM)",
+   "format": "CODE TALK",
    "title": "Ship Reliable AI Agents with Strands Evaluation and AgentCore Evaluations",
    "speakers": "Guille Ojeda",
    "summary": "Cómo convertir fallas reales de agentes en casos de prueba, evaluar respuestas y acciones, y meter quality gates en CI/CD.",
    "occurrences": [
-    {"starts": "2026-12-01T13:00", "location": "Wynn/Encore, Upper Convention Promenade, Cristal 2 (Content Hub, Code Talk)"},
-    {"starts": "2026-12-03T12:00", "location": "Caesars Forum, Level 1, Forum 120 (Content Hub, Code Talk)"}
+    {
+     "starts": "2026-12-01T13:00",
+     "location": "Wynn/Encore, Upper Convention Promenade, Cristal 2 (Content Hub, Code Talk)",
+     "code": "COM317-R1"
+    },
+    {
+     "starts": "2026-12-03T12:00",
+     "location": "Caesars Forum, Level 1, Forum 120 (Content Hub, Code Talk)",
+     "code": "COM317-R"
+    }
    ]
   },
   {
-   "code": "COM338", "format": "LIGHTNING TALK",
+   "code": "COM338",
+   "track": "Comunidad (COM)",
+   "format": "LIGHTNING TALK",
    "title": "From Demo to Production: The Craft Behind AI Agents at Scale",
-   "speakers": "Gerardo Arroyo Arce y Diana Castro Cordero",
+   "speakers": "Gerardo Arroyo Arce y Diana Castro Cordero (West Monroe)",
    "summary": "Lo que pasa después del demo: guardrails deterministas, límites de gasto, evaluaciones confiables y el IAM que se rompe primero.",
    "occurrences": [
-    {"starts": "2026-12-02T09:30", "location": "Wynn/Encore, Upper Convention Promenade, Cristal 2 (Lightning Theater)"}
+    {
+     "starts": "2026-12-02T09:30",
+     "location": "Wynn/Encore, Upper Convention Promenade, Cristal 2 (Lightning Theater)"
+    }
    ]
   },
   {
-   "code": "COM324", "format": "CODE TALK",
+   "code": "COM324",
+   "track": "Comunidad (COM)",
+   "format": "CODE TALK",
    "title": "Pit Crew AI: Building Multi-Agent Cloud Operations on AWS",
-   "speakers": "Pablo Inchausti y David Petrocelli",
+   "speakers": "Pablo Inchausti y David Petrocelli (Caylent)",
    "summary": "Una arquitectura multi-agente inspirada en un pit crew de Fórmula 1 para seguridad, costos, confiabilidad y observabilidad, con demo en vivo.",
    "occurrences": [
-    {"starts": "2026-12-02T15:00", "location": "Caesars Forum, Level 1, Forum 120 (Content Hub, Code Talk)"},
-    {"starts": "2026-12-03T11:30", "location": "Caesars Palace, Promenade South, Octavius 4 (Content Hub, Code Talk)"}
+    {
+     "starts": "2026-12-02T15:00",
+     "location": "Caesars Forum, Level 1, Forum 120 (Content Hub, Code Talk)",
+     "code": "COM324-R"
+    },
+    {
+     "starts": "2026-12-03T11:30",
+     "location": "Caesars Palace, Promenade South, Octavius 4 (Content Hub, Code Talk)",
+     "code": "COM324-R1"
+    }
    ]
   },
   {
-   "code": "COM331", "format": "LIGHTNING TALK",
+   "code": "COM331",
+   "track": "Comunidad (COM)",
+   "format": "LIGHTNING TALK",
    "title": "AI Writes the Code. Who Reviews the Reviewer?",
-   "speakers": "Rossana Suarez",
+   "speakers": "Rossana Suarez (Naranjax)",
    "summary": "Dónde la IA sí mejora el code review, dónde genera falsa confianza y por qué el criterio humano sigue decidiendo.",
    "occurrences": [
-    {"starts": "2026-12-02T16:30", "location": "Wynn/Encore, Upper Convention Promenade, Cristal 2 (Lightning Theater)"}
+    {
+     "starts": "2026-12-02T16:30",
+     "location": "Wynn/Encore, Upper Convention Promenade, Cristal 2 (Lightning Theater)"
+    }
    ]
   },
   {
-   "code": "COM313", "format": "BREAKOUT SESSION",
+   "code": "COM313",
+   "track": "Comunidad (COM)",
+   "format": "BREAKOUT SESSION",
    "title": "Agentic commerce in production: multi-agent orchestration on AgentCore",
-   "speakers": "Ricardo Ceci y Matias Kreder",
+   "speakers": "Ricardo Ceci (VN Studios) y Matias Kreder (Ryz Labs)",
    "summary": "Un sistema multi-agente en producción para comercios en Shopify con AgentCore y Strands Agents, del consejo al checkout.",
    "occurrences": [
-    {"starts": "2026-12-03T16:00", "location": "MGM Grand, Level 1, Grand 117"}
+    {
+     "starts": "2026-12-03T16:00",
+     "location": "MGM Grand, Level 1, Grand 117"
+    }
+   ]
+  },
+  {
+   "code": "AIM407",
+   "track": "IA y machine learning (AIM)",
+   "format": "BUILDERS' SESSION",
+   "title": "Build a production multi-Agent Systems with Strands",
+   "speakers": "Elizabeth Fuentes Leone, Joy Chakraborty y Owen Kaplan (AWS); Albert Zhao y Nicholas Clegg (Amazon)",
+   "summary": "Sesión práctica de nivel 400: con Strands Agents arman un sistema multi-agente que divide tareas complejas entre agentes especialistas, comparte estado y memoria, maneja fallas y aplica guardrails, y lo despliegan en Amazon Bedrock AgentCore.",
+   "occurrences": [
+    {
+     "code": "AIM407-R",
+     "starts": "2026-11-30T12:00",
+     "location": "MGM Grand, Level 3, Chairman's 363 (Content Hub, Builders' Session 1)"
+    },
+    {
+     "code": "AIM407-R1",
+     "starts": "2026-12-02T13:30",
+     "location": "MGM Grand, Level 1, Room 104"
+    }
    ]
   }
  ]
