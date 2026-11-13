@@ -73,9 +73,9 @@ Haz la carga una sola vez por conferencia. Si no hay herramienta de Artifacts, s
 python3 scripts/sessions_seed.py references/sesiones/reinvent2026.json perfil.json tracker/
 ```
 
-Carga `tracker/batches_sesiones.json` igual que los otros lotes. Todos los horarios que caen en los días de la persona quedan `por-reservar`, incluidas las repeticiones (los códigos `-R` y `-R1` del catálogo): son referencia, no le pidas que elija uno. Cada nota trae el código, las otras fechas y el aviso de llegar con tiempo, porque sin reserva el acceso walk-in es por orden de llegada. Recuérdaselo al pasarle los códigos. Las sesiones se reservan en el catálogo oficial con la cuenta y la entrada de la persona: dale los códigos y que las reserve ella. Cuando te diga que reservó una, pásala a `reservado`. Para otra conferencia, agrega un archivo con el mismo formato.
+Carga `tracker/batches_sesiones.json` igual que los otros lotes. Todos los horarios que caen en los días de la persona quedan `por-reservar`, incluidas las repeticiones (los códigos `-R` y `-R1` del catálogo): son referencia, no le pidas que elija uno. Los meetups (`"status": "meetup"` en el archivo) quedan `meetup`: no se reservan, se llega directo. Cada nota trae el código, las otras fechas y el aviso de llegar con tiempo, porque sin reserva el acceso walk-in es por orden de llegada. Recuérdaselo al pasarle los códigos. Las sesiones se reservan en el catálogo oficial con la cuenta y la entrada de la persona: dale los códigos y que las reserve ella. Cuando te diga que reservó una, pásala a `reservado`. Para otra conferencia, agrega un archivo con el mismo formato.
 
-Estados: `por-llenar`, `enviado`, `por-aprobar`, `aprobado`, `lista-espera`, `te-necesita`, `dudoso`, `por-reservar` y `reservado` (solo sesiones), `rechazado`, `cerrado`, `no-voy` (lo marca la persona) y `descartado`. Cada documento tiene además `note` (detalle corto), `entry` (dónde está la entrada, ver Paso 8), `starts` y `ends` (hora local de la ciudad, ej. `2026-11-30T18:00`) y, si se agregó al calendario, `calendar_event_id` (ver Paso 9).
+Estados: `por-llenar`, `enviado`, `por-aprobar`, `aprobado`, `lista-espera`, `te-necesita`, `dudoso`, `por-reservar` y `reservado` (solo sesiones), `meetup` (meetups walk-in, sin reserva), `rechazado`, `cerrado`, `no-voy` (lo marca la persona) y `descartado`. Cada documento tiene además `note` (detalle corto), `entry` (dónde está la entrada, ver Paso 8), `starts` y `ends` (hora local de la ciudad, ej. `2026-11-30T18:00`) y, si se agregó al calendario, `calendar_event_id` (ver Paso 9).
 
 ## Paso 6. Llenar los formularios
 
@@ -117,7 +117,7 @@ Necesita un conector de correo con sesión iniciada (por ejemplo Gmail). Antes d
 
 ## Paso 9. Llevar las fiestas al calendario (opcional)
 
-Pregúntale a la persona qué quiere en su calendario: solo lo confirmado (`enviado`, que significa que la página confirmó el registro, `aprobado` y las sesiones `reservado`) o también lo pendiente (`por-aprobar`, `lista-espera` y las sesiones `por-reservar`, como tentativo). La zona horaria es la de la ciudad de la conferencia (ej. `America/Los_Angeles` para Las Vegas), no la de la persona.
+Pregúntale a la persona qué quiere en su calendario: solo lo confirmado (`enviado`, que significa que la página confirmó el registro, `aprobado` y las sesiones `reservado`) o también lo pendiente (`por-aprobar`, `lista-espera`, las sesiones `por-reservar` y los `meetup`, como tentativo). La zona horaria es la de la ciudad de la conferencia (ej. `America/Los_Angeles` para Las Vegas), no la de la persona.
 
 **Con un conector de calendario** (por ejemplo Google Calendar):
 1. Por cada evento elegido sin `calendar_event_id`, crea un evento en el calendario principal con `starts` y `ends` en la zona de la ciudad. Título: el nombre del evento, con "Pendiente: " delante si es tentativo. Lugar: `location`. Descripción: patrocinador, `entry`, `note` y el link. Si el conector lo permite, márcalo como disponible ("free") cuando sea tentativo.

@@ -10,7 +10,8 @@ de la ciudad de la conferencia, ej. America/Los_Angeles para Las Vegas.
 
 Incluye los eventos "enviado" y "aprobado" y las sesiones "reservado". Con
 --pendientes suma también "por-aprobar", "lista-espera" y las sesiones
-"por-reservar" como tentativos, con "Pendiente:" en el título.
+"por-reservar" como tentativos, con "Pendiente:" en el título, y los meetups
+"meetup" como tentativos, con "Walk-in:" en el título.
 Cada evento lleva un UID fijo: al reimportar, los calendarios que lo respetan
 (Apple, Outlook) actualizan en vez de duplicar.
 """
@@ -22,7 +23,8 @@ from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
 CONFIRMED = {"enviado", "aprobado", "reservado"}
-TENTATIVE = {"por-aprobar", "lista-espera", "por-reservar"}
+TENTATIVE = {"por-aprobar", "lista-espera", "por-reservar", "meetup"}
+PREFIX = {"meetup": "Walk-in: "}
 
 
 def esc(text: str) -> str:
@@ -77,7 +79,7 @@ def main() -> None:
             no_time.append(d["event"])
             continue
         tentative = d["status"] in TENTATIVE
-        title = ("Pendiente: " if tentative else "") + d["event"]
+        title = (PREFIX.get(d["status"], "Pendiente: ") if tentative else "") + d["event"]
         desc = "\n".join(x for x in [
             d.get("sponsor") and (d["sponsor"] if d.get("kind") == "sesion" else f"Organiza: {d['sponsor']}"),
             d.get("summary"),

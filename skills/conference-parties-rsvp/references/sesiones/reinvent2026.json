@@ -138,6 +138,7 @@
    "id": "LOFT-AGENTCORE-API",
    "track": "AWS Builder Loft",
    "format": "MEETUP",
+   "status": "meetup",
    "title": "Build an AI agent that consumes any API with AgentCore",
    "speakers": "Matias Santoro",
    "summary": "Meetup en el AWS Builder Loft sobre cómo construir un agente que consuma cualquier API con AgentCore.",
