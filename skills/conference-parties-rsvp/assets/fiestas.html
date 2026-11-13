@@ -42,7 +42,7 @@ section h2{font-family:var(--display);font-size:18px;margin:8px 0 8px}
 .entry::before{content:"Entrada: ";font-weight:600}
 select.st{font:inherit;font-size:13px;font-weight:600;border-radius:999px;padding:4px 8px;border:1px solid currentColor;background:var(--surface);color:var(--muted);max-width:190px}
 select.st.s-aprobado{color:var(--ok)} select.st.s-te-necesita{color:var(--accent)} select.st.s-rechazado,select.st.s-cerrado{color:var(--bad)}
-select.st.s-por-aprobar,select.st.s-lista-espera,select.st.s-dudoso{color:var(--warn)} select.st.s-enviado,select.st.s-por-reservar{color:var(--info)} select.st.s-reservado{color:var(--ok)}
+select.st.s-por-aprobar,select.st.s-lista-espera,select.st.s-dudoso{color:var(--warn)} select.st.s-enviado,select.st.s-por-reservar,select.st.s-meetup{color:var(--info)} select.st.s-reservado{color:var(--ok)}
 .row.dim .name{color:var(--muted);font-weight:500}
 @media (max-width:560px){.row{grid-template-columns:1fr}.st{justify-self:start}}
 </style>
@@ -63,7 +63,7 @@ select.st.s-por-aprobar,select.st.s-lista-espera,select.st.s-dudoso{color:var(--
 const STATUSES=[
   ['por-llenar','Por llenar'],['enviado','Enviado'],['por-aprobar','Pendiente de aprobación'],
   ['aprobado','Aprobado'],['lista-espera','Lista de espera'],['te-necesita','Te necesita'],
-  ['dudoso','Dudoso'],['por-reservar','Sesión por reservar'],['reservado','Sesión reservada'],
+  ['dudoso','Dudoso'],['por-reservar','Sesión por reservar'],['reservado','Sesión reservada'],['meetup','Meetup (walk-in)'],
   ['rechazado','Rechazado'],['cerrado','Cerrado o lleno'],
   ['no-voy','No voy'],['descartado','Descartado'],
 ];

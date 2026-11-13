@@ -62,7 +62,8 @@ def main() -> None:
         for i, (o, dt) in enumerate(zip(slots, starts)):
             others = [f"{codes[j]} el {human_date(d)}" for j, d in enumerate(starts) if j != i]
             in_days = not days or short_day(dt) in days
-            status = "por-reservar" if in_days else "descartado"
+            # Los meetups no se reservan: quedan "meetup" (walk-in) en vez de "por-reservar".
+            status = s.get("status", "por-reservar") if in_days else "descartado"
             note = " ".join(x for x in [
                 "" if in_days else "Fuera de tus días.",
                 s.get("where_note") or f"Búscala en el catálogo con el código {codes[i]}.",
