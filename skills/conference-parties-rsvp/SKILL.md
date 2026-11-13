@@ -67,11 +67,19 @@ python3 scripts/tracker_seed.py events.json targets.json tracker/
 
 Haz la carga una sola vez por conferencia. Si no hay herramienta de Artifacts, sigue solo con `log.txt`.
 
-Estados: `por-llenar`, `enviado`, `por-aprobar`, `aprobado`, `lista-espera`, `te-necesita`, `dudoso`, `rechazado`, `cerrado`, `no-voy` (lo marca la persona) y `descartado`. Cada documento tiene además `note` (detalle corto), `entry` (dónde está la entrada, ver Paso 8), `starts` y `ends` (hora local de la ciudad, ej. `2026-11-30T18:00`) y, si se agregó al calendario, `calendar_event_id` (ver Paso 9).
+**Sesiones de la comunidad.** Si en `references/sesiones/` hay un archivo para esta conferencia (hoy: `reinvent2026.json`, el track COM con speakers de LATAM), pregúntale a la persona si quiere sumarlas a su lista. Solo si dice que sí:
+
+```bash
+python3 scripts/sessions_seed.py references/sesiones/reinvent2026.json perfil.json tracker/
+```
+
+Carga `tracker/batches_sesiones.json` igual que los otros lotes. De cada sesión, el primer horario que cae en los días de la persona queda `por-reservar`; las repeticiones quedan `descartado`, con una nota para cambiarlas si le cuadran mejor. Las sesiones se reservan en el catálogo oficial con la cuenta y la entrada de la persona: dale los códigos y que las reserve ella. Cuando te diga que reservó una, pásala a `reservado`. Para otra conferencia, agrega un archivo con el mismo formato.
+
+Estados: `por-llenar`, `enviado`, `por-aprobar`, `aprobado`, `lista-espera`, `te-necesita`, `dudoso`, `por-reservar` y `reservado` (solo sesiones), `rechazado`, `cerrado`, `no-voy` (lo marca la persona) y `descartado`. Cada documento tiene además `note` (detalle corto), `entry` (dónde está la entrada, ver Paso 8), `starts` y `ends` (hora local de la ciudad, ej. `2026-11-30T18:00`) y, si se agregó al calendario, `calendar_event_id` (ver Paso 9).
 
 ## Paso 6. Llenar los formularios
 
-Usa el navegador integrado (o Chrome si la persona lo pide). Trabaja en una pestaña aparte.
+Usa el navegador integrado (o Chrome si la persona lo pide). Trabaja en una pestaña aparte. Salta los documentos con `kind: "sesion"`: no tienen formulario y no entres al catálogo oficial.
 
 1. **Luma sin iniciar sesión**: la mayoría de los eventos de Luma deja registrarse como invitada. Abre el evento, haz clic en el botón de registro (Register, Request to Join, Inscribirse, Solicitar unirse) y llena el cuadro con el correo del perfil (con alias, si lo hay). Solo si un evento exige sesión, pídele a la persona que entre en luma.com y sigue con los demás sitios mientras tanto. Con sesión iniciada Luma usa el correo de la sesión: si la persona usa alias, dile que entre con esa dirección.
 2. **Por cada link**:
@@ -109,7 +117,7 @@ Necesita un conector de correo con sesión iniciada (por ejemplo Gmail). Antes d
 
 ## Paso 9. Llevar las fiestas al calendario (opcional)
 
-Pregúntale a la persona qué quiere en su calendario: solo lo confirmado (`enviado`, que significa que la página confirmó el registro, y `aprobado`) o también lo pendiente (`por-aprobar` y `lista-espera`, como tentativo). La zona horaria es la de la ciudad de la conferencia (ej. `America/Los_Angeles` para Las Vegas), no la de la persona.
+Pregúntale a la persona qué quiere en su calendario: solo lo confirmado (`enviado`, que significa que la página confirmó el registro, `aprobado` y las sesiones `reservado`) o también lo pendiente (`por-aprobar`, `lista-espera` y las sesiones `por-reservar`, como tentativo). La zona horaria es la de la ciudad de la conferencia (ej. `America/Los_Angeles` para Las Vegas), no la de la persona.
 
 **Con un conector de calendario** (por ejemplo Google Calendar):
 1. Por cada evento elegido sin `calendar_event_id`, crea un evento en el calendario principal con `starts` y `ends` en la zona de la ciudad. Título: el nombre del evento, con "Pendiente: " delante si es tentativo. Lugar: `location`. Descripción: patrocinador, `entry`, `note` y el link. Si el conector lo permite, márcalo como disponible ("free") cuando sea tentativo.
